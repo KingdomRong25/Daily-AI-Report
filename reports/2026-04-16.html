@@ -1,0 +1,1280 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>🌍 每日AI动态日报 - 2026年4月16日</title>
+<style>
+  :root {
+    --bg: #0f1117;
+    --card: #1a1d27;
+    --card-hover: #22263a;
+    --border: #2a2e3d;
+    --text: #e4e6f0;
+    --text-secondary: #9ca3b5;
+    --accent: #6c5ce7;
+    --accent-glow: rgba(108,92,231,0.15);
+    --s-color: #ff6b6b;
+    --a-color: #feca57;
+    --b-color: #54a0ff;
+    --tag-bg: rgba(108,92,231,0.12);
+    --tag-border: rgba(108,92,231,0.3);
+    --success: #00d2d3;
+    --gradient-1: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    --gradient-2: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+    --gradient-3: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);
+  }
+  
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  
+  body {
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'PingFang SC', 'Microsoft YaHei', sans-serif;
+    background: var(--bg);
+    color: var(--text);
+    line-height: 1.7;
+    min-height: 100vh;
+    scroll-behavior: smooth;
+  }
+
+  /* 背景装饰：网格 + 渐变光晕 */
+  body::before {
+    content: '';
+    position: fixed;
+    inset: 0;
+    background-image:
+      linear-gradient(rgba(108,92,231,0.03) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(108,92,231,0.03) 1px, transparent 1px);
+    background-size: 60px 60px;
+    pointer-events: none;
+    z-index: 0;
+  }
+  
+  body::after {
+    content: '';
+    position: fixed;
+    top: -30%;
+    left: -20%;
+    width: 70vw;
+    height: 70vh;
+    background: radial-gradient(ellipse at center, rgba(108,92,231,0.06), transparent 65%);
+    pointer-events: none;
+    z-index: 0;
+    animation: bg-glow-drift 20s ease-in-out infinite alternate;
+  }
+
+  @keyframes bg-glow-drift {
+    0%   { transform: translate(0, 0); }
+    50%  { transform: translate(5%, 10%); }
+    100% { transform: translate(-3%, 5%); }
+  }
+
+  /* 滚动进度条 */
+  .scroll-progress {
+    position: fixed;
+    top: 0; left: 0;
+    height: 3px;
+    background: linear-gradient(90deg, #6c5ce7, #a29bfe, #54a0ff);
+    z-index: 9999;
+    transition: width 0.08s linear;
+    box-shadow: 0 0 8px rgba(108,92,231,0.4);
+  }
+
+  /* 回到顶部按钮 */
+  .back-to-top {
+    position: fixed;
+    bottom: 28px;
+    right: 24px;
+    width: 44px;
+    height: 44px;
+    background: rgba(108,92,231,0.15);
+    border: 1px solid rgba(108,92,231,0.3);
+    border-radius: 12px;
+    color: #a99eff;
+    font-size: 18px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    opacity: 0;
+    transform: translateY(16px);
+    transition: all 0.3s ease;
+    z-index: 999;
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
+  }
+  .back-to-top.visible {
+    opacity: 1;
+    transform: translateY(0);
+  }
+  .back-to-top:hover {
+    background: rgba(108,92,231,0.3);
+    color: #fff;
+    box-shadow: 0 4px 20px rgba(108,92,231,0.25);
+    transform: translateY(-2px);
+  }
+
+  .container {
+    position: relative;
+    z-index: 1;
+  }
+
+  /* Header */
+  .header {
+    background: linear-gradient(135deg, #1a1d35 0%, #16132d 50%, #1a1530 100%);
+    border-bottom: 1px solid var(--border);
+    padding: 48px 24px 40px;
+    text-align: center;
+    position: relative;
+    overflow: hidden;
+  }
+
+  /* Header 星点粒子 */
+  .stars {
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+    overflow: hidden;
+  }
+  .star {
+    position: absolute;
+    width: 2px; height: 2px;
+    background: rgba(255,255,255,0.6);
+    border-radius: 50%;
+    animation: star-twinkle var(--dur) ease-in-out infinite alternate;
+  }
+  @keyframes star-twinkle {
+    0%   { opacity: 0.15; transform: scale(0.8); }
+    100% { opacity: 0.9; transform: scale(1.3); }
+  }
+  
+  .header::before {
+    content: '';
+    position: absolute;
+    top: -50%;
+    left: -20%;
+    width: 60%;
+    height: 200%;
+    background: radial-gradient(ellipse, rgba(108,92,231,0.08) 0%, transparent 70%);
+    pointer-events: none;
+  }
+  
+  .header::after {
+    content: '';
+    position: absolute;
+    bottom: -30%;
+    right: -10%;
+    width: 50%;
+    height: 160%;
+    background: radial-gradient(ellipse, rgba(84,160,255,0.06) 0%, transparent 70%);
+    pointer-events: none;
+  }
+
+  .header-badge {
+    display: block;
+    text-align: center;
+    background: var(--tag-bg);
+    border: 1px solid var(--tag-border);
+    border-radius: 20px;
+    padding: 4px 14px;
+    font-size: 12px;
+    color: var(--accent);
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    margin-bottom: 16px;
+    width: fit-content;
+    margin-left: auto;
+    margin-right: auto;
+  }
+
+  .header h1 {
+    font-size: 36px;
+    font-weight: 800;
+    letter-spacing: -0.5px;
+    margin-bottom: 12px;
+    background: linear-gradient(90deg, #fff 0%, #c8c8e0 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+
+  .title-with-logo {
+    display: inline-flex;
+    align-items: center;
+    gap: 14px;
+  }
+
+  .logo-icon {
+    font-size: 38px;
+    text-shadow: 0 0 20px rgba(84,160,255,0.4), 0 0 40px rgba(84,160,255,0.15);
+    animation: earth-float 4s ease-in-out infinite;
+    -webkit-text-fill-color: initial !important;
+    background: none !important;
+    -webkit-background-clip: unset !important;
+  }
+
+  @keyframes earth-float {
+    0%, 100% { transform: translateY(0) rotate(0deg); }
+    25% { transform: translateY(-3px) rotate(2deg); }
+    75% { transform: translateY(3px) rotate(-2deg); }
+  }
+
+  .header-meta {
+    display: flex;
+    justify-content: center;
+    gap: 24px;
+    flex-wrap: wrap;
+    color: var(--text-secondary);
+    font-size: 13px;
+  }
+
+  .meta-item { display: flex; align-items: center; gap: 6px; }
+
+  /* Main Container */
+  .container {
+    max-width: 960px;
+    margin: 0 auto;
+    padding: 32px 20px 64px;
+    position: relative;
+    z-index: 1;
+  }
+
+  /* 装饰分隔线 */
+  .divider-deco {
+    height: 1px;
+    background: linear-gradient(90deg, transparent, rgba(108,92,231,0.25), transparent);
+    margin: 36px auto 28px;
+    position: relative;
+  }
+  .divider-deco::before {
+    content: '✦';
+    position: absolute;
+    left: 50%;
+    top: -6px;
+    transform: translateX(-50%);
+    color: var(--accent);
+    font-size: 11px;
+    background: var(--bg);
+    padding: 0 12px;
+  }
+
+  /* Section Titles */
+  .section-title {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    font-size: 22px;
+    font-weight: 700;
+    margin: 40px 0 20px;
+    padding-bottom: 12px;
+    border-bottom: 2px solid var(--border);
+    position: relative;
+  }
+
+  .section-title .icon {
+    font-size: 26px;
+    display: inline-flex;
+    animation: icon-bounce 3s ease-in-out infinite;
+  }
+
+  @keyframes icon-bounce {
+    0%, 100% { transform: translateY(0) scale(1); }
+    50%      { transform: translateY(-3px) scale(1.08); }
+  }
+
+  .section-title.s-level .icon { color: var(--s-color); }
+  .section-title.a-level .icon { color: var(--a-color); }
+  .section-title.b-level .icon { color: var(--b-color); }
+  .section-title.news-icon { color: var(--success); }
+
+  /* Level Badge */
+  .level-bar {
+    display: inline-flex;
+    align-items: center;
+    gap: 4px;
+    padding: 3px 10px;
+    border-radius: 6px;
+    font-size: 11px;
+    font-weight: 600;
+    letter-spacing: 0.5px;
+    margin-bottom: 16px;
+  }
+  
+  .level-s { background: rgba(255,107,107,0.15); color: var(--s-color); border: 1px solid rgba(255,107,107,0.25); }
+  .level-a { background: rgba(254,202,87,0.15); color: var(--a-color); border: 1px solid rgba(254,202,87,0.25); }
+  .level-b { background: rgba(84,160,255,0.15); color: var(--b-color); border: 1px solid rgba(84,160,255,0.25); }
+
+  /* Cards */
+  .card {
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: 14px;
+    padding: 28px;
+    margin-bottom: 18px;
+    transition: all 0.3s cubic-bezier(0.22,1,0.36,1);
+    position: relative;
+    overflow: hidden;
+    backdrop-filter: blur(4px);
+  }
+
+  /* 卡片顶部微光装饰 */
+  .card::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0; right: 0;
+    height: 1px;
+    background: linear-gradient(90deg, transparent, rgba(108,92,231,0.15), transparent);
+    opacity: 0;
+    transition: opacity 0.4s ease;
+  }
+
+  .card:hover::before {
+    opacity: 1;
+  }
+
+  .card:hover {
+    border-color: rgba(108,92,231,0.35);
+    box-shadow:
+      0 8px 32px rgba(0,0,0,0.25),
+      0 0 0 1px rgba(108,92,231,0.1),
+      0 0 40px -10px rgba(108,92,231,0.08);
+    transform: translateY(-3px);
+  }
+
+  .card.s-card { border-left: 3px solid var(--s-color); }
+  .card.a-card { border-left: 3px solid var(--a-color); }
+  .card.b-card { border-left: 3px solid var(--b-color); }
+
+  .card-num {
+    position: absolute;
+    top: 20px;
+    right: 24px;
+    font-size: 42px;
+    font-weight: 900;
+    opacity: 0.04;
+    line-height: 1;
+  }
+
+  .card-title {
+    font-size: 17px;
+    font-weight: 700;
+    margin-bottom: 10px;
+    padding-right: 48px;
+  }
+
+  .card-desc {
+    font-size: 14px;
+    color: var(--text-secondary);
+    margin-bottom: 12px;
+  }
+
+  .card-desc strong { color: var(--text); }
+
+  .card-highlight {
+    background: var(--accent-glow);
+    border-radius: 10px;
+    padding: 14px 16px;
+    margin: 12px 0;
+    font-size: 13.5px;
+    line-height: 1.75;
+    border: 1px solid rgba(108,92,231,0.12);
+  }
+
+  .card-highlight strong {
+    color: var(--accent);
+    font-weight: 600;
+  }
+
+  /* Tags */
+  .tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px;
+    margin-top: 14px;
+  }
+
+  .tag {
+    background: var(--tag-bg);
+    border: 1px solid var(--tag-border);
+    border-radius: 6px;
+    padding: 3px 10px;
+    font-size: 11.5px;
+    color: #a5a8d6;
+    font-weight: 500;
+  }
+
+  /* Source */
+  .source-line {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: 10px;
+    padding-top: 10px;
+    border-top: 1px dashed rgba(255,255,255,0.06);
+    font-size: 11.5px;
+    color: #6b7094;
+  }
+
+  .source-link { color: var(--accent); text-decoration: none; word-break: break-all; max-width: 65%; }
+  .source-link:hover { text-decoration: underline; }
+
+  /* Table */
+  .news-table {
+    width: 100%;
+    border-collapse: separate;
+    border-spacing: 0;
+    margin-top: 8px;
+    border-radius: 12px;
+    overflow: hidden;
+    border: 1px solid var(--border);
+    background: var(--card);
+  }
+
+  .news-table thead th {
+    background: linear-gradient(135deg, rgba(108,92,231,0.15), rgba(108,92,231,0.06));
+    color: var(--accent);
+    font-weight: 600;
+    font-size: 12px;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    padding: 14px 16px;
+    text-align: left;
+    border-bottom: 1px solid rgba(108,92,231,0.2);
+  }
+
+  .news-table thead th:first-child { border-radius: 10px 0 0 0; }
+  .news-table thead th:last-child { border-radius: 0 10px 0 0; }
+
+  .news-table tbody td {
+    padding: 14px 16px;
+    font-size: 13.5px;
+    border-bottom: 1px solid rgba(255,255,255,0.03);
+    vertical-align: top;
+    transition: background 0.2s ease;
+  }
+
+  .news-table tbody tr:hover td {
+    background: rgba(108,92,231,0.05);
+  }
+
+  .news-table tbody tr:last-child td { border-bottom: none; }
+  .news-table tbody tr:last-child td:first-child { border-radius: 0 0 0 10px; }
+  .news-table tbody tr:last-child td:last-child { border-radius: 0 0 10px 0; }
+
+  .table-tag {
+    display: inline-block;
+    background: rgba(0,210,211,0.1);
+    color: var(--success);
+    padding: 2px 8px;
+    border-radius: 4px;
+    font-size: 11px;
+    white-space: nowrap;
+  }
+
+  /* Impact Section */
+  .impact-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 14px;
+    margin-top: 12px;
+  }
+
+  .impact-item {
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    padding: 18px 20px;
+    border-top: 3px solid var(--success);
+    transition: all 0.3s cubic-bezier(0.22,1,0.36,1);
+    position: relative;
+    overflow: hidden;
+  }
+
+  .impact-item::after {
+    content: '';
+    position: absolute;
+    top: -8px; right: -12px;
+    width: 40px; height: 40px;
+    background: radial-gradient(circle, rgba(0,210,211,0.08), transparent 70%);
+    pointer-events: none;
+  }
+
+  .impact-item:hover {
+    transform: translateY(-4px) scale(1.01);
+    box-shadow: 0 10px 30px rgba(0,0,0,0.25), 0 0 24px -6px rgba(0,210,211,0.15);
+    border-color: rgba(0,210,211,0.25);
+  }
+
+  .impact-dynamic {
+    font-weight: 600;
+    font-size: 13.5px;
+    color: #e4e6f0;
+    margin-bottom: 6px;
+  }
+
+  .impact-desc {
+    font-size: 13px;
+    color: var(--text-secondary);
+  }
+
+  /* Summary Box */
+  .summary-box {
+    background: linear-gradient(135deg, rgba(102,126,234,0.08) 0%, rgba(118,75,162,0.05) 100%);
+    border: 1px solid rgba(108,92,231,0.18);
+    border-radius: 14px;
+    padding: 24px 28px;
+    margin-top: 12px;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .summary-box::before {
+    content: '';
+    position: absolute;
+    top: -40px; right: -40px;
+    width: 120px; height: 120px;
+    background: radial-gradient(circle, rgba(108,92,231,0.08), transparent 70%);
+    pointer-events: none;
+  }
+
+  .summary-keywords {
+    display: flex;
+    gap: 12px;
+    flex-wrap: wrap;
+    margin-top: 14px;
+  }
+
+  .keyword-pill {
+    background: var(--gradient-1);
+    color: #fff;
+    padding: 6px 16px;
+    border-radius: 20px;
+    font-size: 13px;
+    font-weight: 600;
+  }
+
+  .summary-list {
+    list-style: none;
+    counter-reset: summary-counter;
+  }
+
+  .summary-list li {
+    counter-increment: summary-counter;
+    padding: 8px 0 8px 32px;
+    position: relative;
+    font-size: 14px;
+    color: var(--text-secondary);
+  }
+
+  .summary-list li::before {
+    content: counter(summary-counter);
+    position: absolute;
+    left: 0;
+    top: 8px;
+    width: 22px;
+    height: 22px;
+    background: var(--accent);
+    color: #fff;
+    border-radius: 6px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 11px;
+    font-weight: 700;
+  }
+
+  /* ========== 动画系统 ========== */
+  
+  /* 滚动入场基础样式 */
+  .reveal {
+    opacity: 0;
+    transform: translateY(24px);
+    transition: opacity 0.65s cubic-bezier(0.22, 1, 0.36, 1),
+                transform 0.65s cubic-bezier(0.22, 1, 0.36, 1);
+  }
+  
+  .reveal.visible {
+    opacity: 1;
+    transform: translateY(0);
+  }
+
+  .reveal-delay-1 { transition-delay: 0.08s; }
+  .reveal-delay-2 { transition-delay: 0.16s; }
+  .reveal-delay-3 { transition-delay: 0.24s; }
+  .reveal-delay-4 { transition-delay: 0.32s; }
+  .reveal-delay-5 { transition-delay: 0.40s; }
+  .reveal-delay-6 { transition-delay: 0.48s; }
+  .reveal-delay-7 { transition-delay: 0.56s; }
+  .reveal-delay-8 { transition-delay: 0.64s; }
+  .reveal-delay-9 { transition-delay: 0.72s; }
+  .reveal-delay-10 { transition-delay: 0.80s; }
+
+  /* Header 入场动画 */
+  @keyframes header-slide-up {
+    from { opacity: 0; transform: translateY(-20px); }
+    to   { opacity: 1; transform: translateY(0); }
+  }
+  @keyframes header-fade-in {
+    from { opacity: 0; }
+    to   { opacity: 1; }
+  }
+  .header-badge { animation: header-slide-up 0.6s ease-out both; }
+  .header h1      { animation: header-slide-up 0.7s ease-out 0.15s both; }
+  .header-meta     { animation: header-fade-in 0.6s ease-out 0.35s both; }
+
+  /* Badge 呼吸光效 */
+  @keyframes badge-glow {
+    0%, 100% { box-shadow: 0 0 8px rgba(108,92,231,0); }
+    50%      { box-shadow: 0 0 16px rgba(108,92,231,0.25), 0 0 32px rgba(108,92,231,0.08); }
+  }
+  .header-badge {
+    animation-name: header-slide-up, badge-glow;
+    animation-duration: 0.6s, 3s;
+    animation-timing-function: ease-out, ease-in-out;
+    animation-fill-mode: both, both;
+  }
+
+  /* 卡片编号浮动动画 */
+  @keyframes num-float {
+    0%, 100% { transform: translateY(0); opacity: 0.04; }
+    50%      { transform: translateY(-6px); opacity: 0.065; }
+  }
+  .card-num { animation: num-float 5s ease-in-out infinite; }
+
+  /* S/A/B 级卡片左边框流光 */
+  @keyframes border-flow-s {
+    0%   { box-shadow: -3px 0 0 0 rgba(255,107,107,0), inset 0 0 0 0 transparent; }
+    30%  { box-shadow: -3px 0 0 0 rgba(255,107,107,0.15), inset 3px 0 12px rgba(255,107,107,0.03); }
+    100% { box-shadow: -3px 0 0 0 rgba(255,107,107,0), inset 0 0 0 0 transparent; }
+  }
+  @keyframes border-flow-a {
+    0%   { box-shadow: -3px 0 0 0 rgba(254,202,87,0), inset 0 0 0 0 transparent; }
+    30%  { box-shadow: -3px 0 0 0 rgba(254,202,87,0.15), inset 3px 0 12px rgba(254,202,87,0.03); }
+    100% { box-shadow: -3px 0 0 0 rgba(254,202,87,0), inset 0 0 0 0 transparent; }
+  }
+  @keyframes border-flow-b {
+    0%   { box-shadow: -3px 0 0 0 rgba(84,160,255,0), inset 0 0 0 0 transparent; }
+    30%  { box-shadow: -3px 0 0 0 rgba(84,160,255,0.15), inset 3px 0 12px rgba(84,160,255,0.03); }
+    100% { box-shadow: -3px 0 0 0 rgba(84,160,255,0), inset 0 0 0 0 transparent; }
+  }
+  .s-card { animation: border-flow-s 6s ease-in-out infinite; }
+  .a-card { animation: border-flow-a 6s ease-in-out infinite; }
+  .b-card { animation: border-flow-b 6s ease-in-out infinite; }
+
+  /* 标签悬浮微动画 */
+  .tag {
+    transition: all 0.2s ease;
+  }
+  .tag:hover {
+    transform: translateY(-2px);
+    background: rgba(108,92,231,0.22);
+    color: #c8bfff;
+    box-shadow: 0 2px 8px rgba(108,92,231,0.12);
+  }
+
+  /* Section 标题下划线生长 */
+  .section-title::after {
+    content: '';
+    position: absolute;
+    bottom: -2px;
+    left: 0;
+    width: 40px;
+    height: 2px;
+    background: linear-gradient(90deg, var(--accent), transparent);
+    border-radius: 1px;
+    transition: width 0.5s ease;
+  }
+  .section-title:hover::after {
+    width: 120px;
+  }
+  .section-title {
+    position: relative;
+  }
+
+  /* 高亮块边框渐变流动 */
+  @keyframes highlight-border {
+    0%   { border-color: rgba(108,92,231,0.12); }
+    33%  { border-color: rgba(102,126,234,0.18); }
+    66%  { border-color: rgba(118,75,162,0.14); }
+    100% { border-color: rgba(108,92,231,0.12); }
+  }
+  .card-highlight { animation: highlight-border 8s ease-in-out infinite; }
+
+  /* 关键词药丸闪烁 */
+  @keyword-pill-shimmer {
+    0%   { filter: brightness(1); }
+    50%  { filter: brightness(1.15); }
+    100% { filter: brightness(1); }
+  }
+  .keyword-pill {
+    animation: keyword-pill-shimmer 3s ease-in-out infinite;
+  }
+  .keyword-pill:nth-child(2) { animation-delay: 0.5s; }
+  .keyword-pill:nth-child(3) { animation-delay: 1s; }
+
+  /* Impact 卡片顶部色条脉冲 */
+  @keyframes impact-bar-pulse {
+    0%, 100% { border-top-color: var(--success); }
+    50%      { border-top-color: #00e5e6; }
+  }
+  .impact-item { animation: impact-bar-pulse 4s ease-in-out infinite; }
+
+  /* 表格行交错入场 */
+  .news-table tbody tr {
+    opacity: 0;
+    transform: translateX(-10px);
+    transition: opacity 0.4s ease, transform 0.4s ease;
+  }
+  .news-table tbody tr.in-view {
+    opacity: 1;
+    transform: translateX(0);
+  }
+
+  /* 趋势总结列表数字弹入 */
+  .summary-list li {
+    opacity: 0;
+    transform: translateX(-12px);
+    transition: opacity 0.45s ease, transform 0.45s ease;
+  }
+  .summary-list li.in-view {
+    opacity: 1;
+    transform: translateX(0);
+  }
+
+  /* Footer 渐现 */
+  footer.footer {
+    opacity: 0;
+    transition: opacity 0.6s ease;
+  }
+  footer.footer.in-view {
+    opacity: 1;
+  }
+
+  /* Header 背景粒子流动 */
+  @keyframes bg-drift-1 {
+    0%, 100% { transform: translate(0, 0) rotate(0deg) scale(1); }
+    33%      { transform: translate(20px, -15px) rotate(1deg) scale(1.05); }
+    66%      { transform: translate(-10px, 10px) rotate(-1deg) scale(0.98); }
+  }
+  @keyframes bg-drift-2 {
+    0%, 100% { transform: translate(0, 0) rotate(0deg) scale(1); }
+    33%      { transform: translate(-15px, 20px) rotate(-1deg) scale(1.04); }
+    66%      { transform: translate(15px, -10px) rotate(1deg) scale(0.97); }
+  }
+  .header::before { animation: bg-drift-1 15s ease-in-out infinite; }
+  .header::after  { animation: bg-drift-2 18s ease-in-out infinite; }
+
+  /* Level Bar 微闪光 */
+  @keyframes level-flash {
+    0%   { opacity: 1; }
+    50%  { opacity: 0.85; }
+    100% { opacity: 1; }
+  }
+  .level-bar { animation: level-flash 4s ease-in-out infinite; }
+
+  /* 链接悬停发光 */
+  .source-link {
+    position: relative;
+    transition: color 0.2s ease;
+  }
+  .source-link:hover {
+    color: #a99eff;
+    text-shadow: 0 0 12px rgba(108,92,231,0.35);
+  }
+
+  /* 减少动画偏好（无障碍） */
+  @media (prefers-reduced-motion: reduce) {
+    *, *::before, *::after {
+      animation-duration: 0.01ms !important;
+      animation-iteration-count: 1 !important;
+      transition-duration: 0.01ms !important;
+    }
+    .reveal { opacity: 1; transform: none; }
+    .news-table tbody tr, .summary-list li, footer.footer { opacity: 1; transform: none; }
+  }
+
+  /* Footer */
+  .footer {
+    text-align: center;
+    padding: 36px 20px;
+    color: #5a5f82;
+    font-size: 12px;
+    border-top: 1px solid var(--border);
+    margin-top: 48px;
+    position: relative;
+  }
+
+  .footer::before {
+    content: '';
+    display: block;
+    width: 60px;
+    height: 3px;
+    background: linear-gradient(90deg, var(--accent), transparent);
+    border-radius: 2px;
+    margin: 0 auto 20px;
+  }
+
+  .footer p {
+    letter-spacing: 0.3px;
+  }
+
+  /* Responsive */
+  @media (max-width: 640px) {
+    .header h1 { font-size: 24px; }
+    .title-with-logo { flex-direction: column; gap: 8px; }
+    .logo-icon { font-size: 32px; }
+    .container { padding: 20px 14px 48px; }
+    .card { padding: 18px 16px; }
+    .card-title { font-size: 15px; }
+    .card-num { font-size: 32px; right: 16px; top: 14px; }
+    .section-title { font-size: 19px; }
+    .impact-grid { grid-template-columns: 1fr; }
+    .news-table { font-size: 12px; }
+    .news-table th, .news-table td { padding: 10px 8px; }
+    .back-to-top { bottom: 18px; right: 16px; width: 38px; height: 38px; font-size: 15px; }
+    body::before { background-size: 40px 40px; }
+  }
+</style>
+</head>
+<body>
+
+<!-- 滚动进度条 -->
+<div class="scroll-progress" id="scrollProgress"></div>
+<!-- 回到顶部按钮 -->
+<button class="back-to-top" id="backToTop" title="返回顶部">↑</button>
+
+<!-- Header -->
+<header class="header">
+  <div class="stars" id="stars"></div>
+  <div class="header-badge">🤖 AI DAILY REPORT</div>
+  <h1 class="title-with-logo"><span class="logo-icon">🌍</span> 每日 AI 动态日报</h1>
+  <div class="header-meta">
+    <span class="meta-item">📅 2026年4月16日 周四</span>
+    <span class="meta-item">🌐 全球范围</span>
+    <span class="meta-item">🕐 信息截止 09:00</span>
+  </div>
+</header>
+
+<div class="container">
+
+  <!-- ========== S级 ========== -->
+  <div class="section-title s-level reveal"><span class="icon">🔥</span> TOP 10 重点资讯 — S级 行业地震</div>
+
+  <div class="level-bar level-s reveal">⭐⭐⭐ S级 — 行业地震级事件</div>
+
+  <!-- Card 1 -->
+  <article class="card s-card reveal reveal-delay-1">
+    <span class="card-num">01</span>
+    <h2 class="card-title">GPT-6 正式发布（代号 "Spud/土豆"）</h2>
+    <p class="card-desc">
+      OpenAI 于<strong>4月14日全球同步发布 GPT-6</strong>，采用全新 <strong>Symphony 双系统推理架构</strong><br>
+      • 关键参数：<strong>200万 Token 超长上下文窗口</strong>、综合性能较上代提升约 <strong>40%</strong>、SWE-bench 编程能力达人类专家水平
+    </p>
+    <div class="card-highlight">
+      <strong>值得关注：</strong> 标志着大模型竞争从"参数规模"转向"架构与推理范式"比拼的新阶段；超长上下文直接削弱 Claude 的传统优势领域；奥特曼称之为"AGI的最后冲刺"
+    </div>
+    <div class="tags">
+      <span class="tag">大模型</span><span class="tag">OpenAI</span><span class="tag">AGI</span><span class="tag">编程</span>
+    </div>
+    <div class="source-line">
+      <span>来源：OpenAI 官方发布 / 人人都是产品经理 / my321日报</span>
+      <a href="https://blog.my321.cn/ai-daily-20260415/" target="_blank" class="source-link">🔗 链接</a>
+    </div>
+  </article>
+
+  <!-- Card 2 -->
+  <article class="card s-card reveal reveal-delay-2">
+    <span class="card-num">02</span>
+    <h2 class="card-title">Anthropic 年化收入突破300亿美元，企业市场份额反超 OpenAI</h2>
+    <p class="card-desc">
+      Anthropic 年收入从<strong>90亿美元（2025年底）暴涨至300亿+</strong>，企业客户采购占比 <strong>73% vs OpenAI 仅27%</strong><br>
+      • 核心驱动：<strong>Claude Code</strong> 在企业编程市场爆发（SWE-bench 80.8%最高分）；Claude 安全人设成功转化为商业胜势
+    </p>
+    <div class="card-highlight">
+      <strong>值得关注：</strong> 企业级AI采购逻辑已从"追求最强性能"转向"可信+安全优先"；分析师预计最快2026年10月IPO；已与谷歌/博通锁定3.5吉瓦TPU算力，正考虑自研芯片
+    </div>
+    <div class="tags">
+      <span class="tag">Anthropic</span><span class="tag">商业化</span><span class="tag">企业AI</span><span class="tag">Claude Code</span><span class="tag">融资/IPO</span>
+    </div>
+    <div class="source-line">
+      <span>来源：人人都是产品经理 / 钛媒体 Edge AI Daily / my321日报</span>
+      <a href="https://www.woshipm.com/ai/6376973.html" target="_blank" class="source-link">🔗 链接</a>
+    </div>
+  </article>
+
+  <!-- ========== A级 ========== -->
+  <div class="section-title a-level reveal"><span class="icon">⚡</span> A级 重磅动态</div>
+  <div class="level-bar level-a reveal">⭐⭐ A级 — 重磅行业动态</div>
+
+  <!-- Card 3 -->
+  <article class="card a-card reveal reveal-delay-1">
+    <span class="card-num">03</span>
+    <h2 class="card-title">Claude Opus 4.7 即将发布 + Claude Code 重构升级 + Vibe 设计工具</h2>
+    <p class="card-desc">
+      本周内将发布 <strong>Claude Opus 4.7（代号 capybara-v2）</strong>；Claude Code 桌面端全面重构；同步推出设计工具 <strong>Vibe 直接挑战 Adobe/Figma</strong><br>
+      • Claude Code 升级：<strong>多窗口并行多实例</strong> + 全新侧边栏<br>
+      • <strong>Routines 功能：</strong>支持 7×24 小时云端自动化工作（定时/API/GitHub Webhook 触发）
+    </p>
+    <div class="card-highlight">
+      <strong>值得关注：</strong>Routines 功能标志着 AI 编程工具从"辅助"进化为"可自主运行的云端数字员工"；Vibe 设计工具曝光后 Adobe/Figma/Wix 股价均跌超2%
+    </div>
+    <div class="tags">
+      <span class="tag">Anthropic</span><span class="tag">Claude</span><span class="tag">AI Coding</span><span class="tag">Agent工具链</span><span class="tag">设计工具</span>
+    </div>
+    <div class="source-line">
+      <span>来源：53AI / 新智元</span>
+      <a href="https://www.53ai.com/news/LargeLanguageModel/2026041502957.html" target="_blank" class="source-link">🔗 链接</a>
+    </div>
+  </article>
+
+  <!-- Card 4 -->
+  <article class="card a-card reveal reveal-delay-2">
+    <span class="card-num">04</span>
+    <h2 class="card-title">Meta 发布 Llama 4 系列开源模型（Scout + Maverick）</h2>
+    <p class="card-desc">
+      Meta 发布 <strong>Llama 4 Scout</strong>（千万级token上下文）和 <strong>Llama 4 Maverick</strong>（MoE架构，基准测试据称超越GPT-4o）<br>
+      • 技术亮点：<strong>混合专家(MoE)架构</strong>；预告更高性能的 Llama 4 Behemoth 即将到来
+    </p>
+    <div class="card-highlight">
+      <strong>值得关注：</strong> 开源模型再次突破闭源模型性能天花板；MoE 架构可能改变训练部署的成本范式；对中小企业和开发者生态影响深远
+    </div>
+    <div class="tags">
+      <span class="tag">Meta</span><span class="tag">开源模型</span><span class="tag">Llama 4</span><span class="tag">MoE</span>
+    </div>
+    <div class="source-line">
+      <span>来源：腾讯云开发者社区 AI日报 / 新浪财经</span>
+      <a href="https://finance.sina.com.cn/roll/2025-04-15/doc-inetftfu7828650.shtml" target="_blank" class="source-link">🔗 链接</a>
+    </div>
+  </article>
+
+  <!-- Card 5 -->
+  <article class="card a-card reveal reveal-delay-3">
+    <span class="card-num">05</span>
+    <h2 class="card-title">DeepSeek V4 全面迁移华为昇腾芯片，国产算力自主化里程碑</h2>
+    <p class="card-desc">
+      DeepSeek V4 最新旗舰模型<strong>全面适配华为昇腾950PR芯片</strong>，彻底告别英伟达GPU依赖<br>
+      • 战略意义：<strong>万亿参数规模 + 百万级上下文</strong>；国产大模型在编程基准测试首次全面超越OpenAI；英伟达在中国高端AI芯片市场份额从95%降至接近0%
+    </p>
+    <div class="card-highlight">
+      <strong>值得关注：</strong>"国产模型 + 国产芯片"软硬一体闭环成型；阿里/字节/腾讯等已预订数十万片新一代国产算力芯片；预计4月底完整版发布
+    </div>
+    <div class="tags">
+      <span class="tag">DeepSeek</span><span class="tag">华为昇腾</span><span class="tag">国产替代</span><span class="tag">芯片</span><span class="tag">开源</span>
+    </div>
+    <div class="source-line">
+      <span>来源：my321日报 / MSN / 人人都是产品经理</span>
+      <a href="https://www.msn.cn/zh-cn/news/other/deepseek-v4" target="_blank" class="source-link">🔗 链接</a>
+    </div>
+  </article>
+
+  <!-- Card 6 -->
+  <article class="card a-card reveal reveal-delay-4">
+    <span class="card-num">06</span>
+    <h2 class="card-title">Meta 星门团队挖角 + 1350亿美元AI基建投资计划</h2>
+    <p class="card-desc">
+      OpenAI"星门"项目<strong>三位核心负责人跳槽至Meta</strong>；Meta 将2026年资本支出上限提高至<strong>1350亿美元</strong>，超60%用于AI数据中心和定制芯片
+    </p>
+    <div class="card-highlight">
+      <strong>值得关注：</strong> 人才流动方向反映行业重心转移——从纯模型研发转向基础设施军备竞赛；全球AI基础设施市场规模预计突破8000亿美元
+    </div>
+    <div class="tags">
+      <span class="tag">Meta</span><span class="tag">人才</span><span class="tag">基础设施</span><span class="tag">算力</span><span class="tag">投资</span>
+    </div>
+    <div class="source-line">
+      <span>来源：钛媒体 Edge AI Daily (4月13日)</span>
+      <a href="https://www.tmtpost.com/7950510.html" target="_blank" class="source-link">🔗 链接</a>
+    </div>
+  </article>
+
+  <!-- ========== B级 ========== -->
+  <div class="section-title b-level reveal"><span class="icon">📊</span> B级 重要进展</div>
+  <div class="level-bar level-b reveal">⭐ B级 — 重要进展与趋势</div>
+
+  <!-- Card 7 -->
+  <article class="card b-card reveal reveal-delay-1">
+    <span class="card-num">07</span>
+    <h2 class="card-title">全球首个具身智能工业产线规模化落地 —— 智元机器人</h2>
+    <p class="card-desc">
+      智元精灵G2在南昌龙旗科技平板制造工厂完成<strong>8小时真实产线作业直播</strong><br>
+      • 运行数据：<strong>2283次任务零失误、成功率100%、每小时310件产品</strong>
+    </p>
+    <div class="card-highlight">
+      <strong>值得关注：</strong> 人形机器人首次与传统量产产线成功并线常态化部署；标志着2026年为"AI+机器人"规模化落地元年
+    </div>
+    <div class="tags">
+      <span class="tag">具身智能</span><span class="tag">机器人</span><span class="tag">工业落地</span><span class="tag">智能制造</span>
+    </div>
+    <div class="source-line">
+      <span>来源：my321日报</span>
+      <a href="https://blog.my321.cn/ai-daily-20260415/" target="_blank" class="source-link">🔗 链接</a>
+    </div>
+  </article>
+
+  <!-- Card 8 -->
+  <article class="card b-card reveal reveal-delay-2">
+    <span class="card-num">08</span>
+    <h2 class="card-title">Z.ai (智谱) 品牌升级：GLM-4-0414 开源模型家族发布</h2>
+    <p class="card-desc">
+      原 ChatGLM 品牌更名为 <strong>Z.ai</strong>，同步开源 GLM-4-0414 系列<strong>六款模型（MIT协议）</strong><br>
+      • 模型阵容：通用版 GLM-4-32B、推理版 GLM-Z1-32B、深度研究版 GLM-Z1-Rumination-32B 等<br>
+      • 性能亮点：<strong>32B 参数性能媲美 72B 的 Qwen2.5</strong>
+    </p>
+    <div class="card-highlight">
+      <strong>值得关注：</strong> 国产开源模型持续发力；MIT 协议极大降低商用门槛；细分场景（推理/深度研究）专业化布局
+    </div>
+    <div class="tags">
+      <span class="tag">智谱</span><span class="tag">开源模型</span><span class="tag">GLM</span><span class="tag">国产</span>
+    </div>
+    <div class="source-line">
+      <span>来源：腾讯云开发者社区 AI日报</span>
+      <a href="https://cloud.tencent.com/developer/article/2514117" target="_blank" class="source-link">🔗 链接</a>
+    </div>
+  </article>
+
+  <!-- Card 9 -->
+  <article class="card b-card reveal reveal-delay-3">
+    <span class="card-num">09</span>
+    <h2 class="card-title">NVIDIA 拟巨资投入 TSMC 亚利桑那工厂 + Rubin 芯片延迟风险</h2>
+    <p class="card-desc">
+      NVIDIA 计划大幅增加对台积电亚利桑那工厂的投资；TrendForce 报告称 <strong>Rubin 芯片可能因供应链调校面临延迟风险</strong><br>
+      • 背景：2026 年 NVIDIA 高端 AI 芯片出货结构将出现变化
+    </p>
+    <div class="card-highlight">
+      <strong>值得关注：</strong> AI 芯片供应链紧张局势持续；去中心化 GPU 云模式崛起应对算力稀缺；芯片交付节奏直接影响全球 AI 发展速度
+    </div>
+    <div class="tags">
+      <span class="tag">NVIDIA</span><span class="tag">芯片</span><span class="tag">算力</span><span class="tag">供应链</span><span class="tag">半导体</span>
+    </div>
+    <div class="source-line">
+      <span>来源：TrendForce / 腾讯云日报</span>
+      <a href="https://www.trendforce.cn/presscenter/news/20260408-13004.html" target="_blank" class="source-link">🔗 链接</a>
+    </div>
+  </article>
+
+  <!-- Card 10 -->
+  <article class="card b-card reveal reveal-delay-4">
+    <span class="card-num">10</span>
+    <h2 class="card-title">Cloudflare Agents Week：智能体基础设施启动速度提升100倍</h2>
+    <p class="card-desc">
+      Cloudflare 推出适配 AI 智能体的新型基础设施，基于 <strong>V8 隔离技术</strong>，启动速度比传统容器快 <strong>100倍</strong><br>
+      • 解决痛点：应对智能体时代的亿级知识工作者并发算力需求
+    </p>
+    <div class="card-highlight">
+      <strong>值得关注：</strong> Agent 基础设施成为新的技术赛道；从"模型竞赛"延伸到"运行时竞赛"；Cloudflare 边缘计算优势向 AI 领域溢出
+    </div>
+    <div class="tags">
+      <span class="tag">基础设施</span><span class="tag">Agent</span><span class="tag">边缘计算</span><span class="tag">Cloudflare</span>
+    </div>
+    <div class="source-line">
+      <span>来源：钛媒体 Edge AI Daily (4月13日)</span>
+      <a href="https://www.tmtpost.com/7950510.html" target="_blank" class="source-link">🔗 链接</a>
+    </div>
+  </article>
+
+  <!-- ========== 其他10条资讯 ========== -->
+  <div class="section-title news-icon reveal"><span class="icon">📰</span> 其他 10 条相关资讯速览</div>
+
+  <table class="news-table reveal">
+    <thead>
+      <tr>
+        <th style="width:44px">#</th>
+        <th style="width:28%">事件摘要</th>
+        <th>为什么值得关注</th>
+        <th>标签</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><strong>1</strong></td>
+        <td><strong>Synthesia 年收入破亿美元</strong>，获 Adobe 战略投资</td>
+        <td>AI 视频生成赛道首个规模化盈利案例，验证 B2B AI 内容生成商业模式</td>
+        <td><span class="table-tag">融资</span> <span class="table-tag">视频生成</span></td>
+      </tr>
+      <tr>
+        <td><strong>2</strong></td>
+        <td><strong>通义千问 Qwen3-Coder 开源</strong>：4800亿参数 MoE 编程智能体</td>
+        <td>阿里在 AI 编程 Agent 赛道加码，支持 256K 上下文</td>
+        <td><span class="table-tag">阿里</span> <span class="table-tag">开源</span> <span class="table-tag">AI Coding</span></td>
+      </tr>
+      <tr>
+        <td><strong>3</strong></td>
+        <td><strong>微软 Copilot 启动"红色警报"改革</strong></td>
+        <td>市场份额从35%降至32%，整合GPT-4o新增自动化工作流</td>
+        <td><span class="table-tag">微软</span> <span class="table-tag">Copilot</span> <span class="table-tag">企业AI</span></td>
+      </tr>
+      <tr>
+        <td><strong>4</strong></td>
+        <td><strong>xAI Grok 目标5-6月追平 Claude Opus 4.6</strong></td>
+        <td>部署超20万块GPU，单次训练成本超6300万美元</td>
+        <td><span class="table-tag">xAI</span> <span class="table-tag">Grok</span> <span class="table-tag">大模型</span></td>
+      </tr>
+      <tr>
+        <td><strong>5</strong></td>
+        <td><strong>OpenAI 设立伦敦首个海外永久办公室</strong>（8200平米）</td>
+        <td>预计2027年启用，争夺欧洲 AI 高地及话语权</td>
+        <td><span class="table-tag">OpenAI</span> <span class="table-tag">国际化</span> <span class="table-tag">欧洲</span></td>
+      </tr>
+      <tr>
+        <td><strong>6</strong></td>
+        <td><strong>工信部十部门联合印发《人工智能科技伦理审查办法》</strong></td>
+        <td>AI 治理从"软倡导"转向"硬约束"，覆盖全链条</td>
+        <td><span class="table-tag">政策监管</span> <span class="table-tag">伦理安全</span></td>
+      </tr>
+      <tr>
+        <td><strong>7</strong></td>
+        <td><strong>智元机器人产量3个月翻倍至1万台</strong> + 宇树机器人完成侧空翻</td>
+        <td>人形机器人量产速度超预期，预测进入实用场景爆发期</td>
+        <td><span class="table-tag">机器人</span> <span class="table-tag">具身智能</span></td>
+      </tr>
+      <tr>
+        <td><strong>8</strong></td>
+        <td><strong>IDC 预测：2029年欧洲AI支出将达2900亿美元</strong></td>
+        <td>2025-2029复合增长率33.7%，生成式AI占主导(54%)</td>
+        <td><span class="table-tag">市场预测</span> <span class="table-tag">欧洲</span></td>
+      </tr>
+      <tr>
+        <td><strong>9</strong></td>
+        <td><strong>Anthropic Mythos 引发金融安全博弈</strong></td>
+        <td>美国财政部召集华尔街巨头检测漏洞，但该模型4小时能攻破主流服务器</td>
+        <td><span class="table-tag">网络安全</span> <span class="table-tag">金融安全</span></td>
+      </tr>
+      <tr>
+        <td><strong>10</strong></td>
+        <td><strong>DeepSeek 入选中国年度十大网络流行语</strong></td>
+        <td>反映 AI 已深度渗透大众文化生活，品牌认知达现象级水平</td>
+        <td><span class="table-tag">DeepSeek</span> <span class="table-tag">文化影响</span></td>
+      </tr>
+    </tbody>
+  </table>
+
+  <!-- ========== 趋势总结 ========== -->
+  <div class="section-title reveal"><span class="icon">📈</span> 今日趋势总结</div>
+
+  <div class="summary-box reveal">
+    <div style="font-weight:700;font-size:15px;margin-bottom:8px;">三大关键词</div>
+    <div class="summary-keywords">
+      <span class="keyword-pill">模型能力跃升</span>
+      <span class="keyword-pill">商业化分化</span>
+      <span class="keyword-pill">基础设施军备</span>
+    </div>
+    <ul class="summary-list" style="margin-top:18px;">
+      <li><strong>模型层：</strong>GPT-6 发布 + Claude Opus 4.7 即将推出 + Llama 4 开源 + DeepSeek V4 国产化 = 史诗级密集更新周</li>
+      <li><strong>商业层：</strong>Anthropic 凭安全优势逆袭 OpenAI 企业市场；AI 编程工具成为最赚钱的应用入口</li>
+      <li><strong>基建层：</strong>Meta 1350亿美元预算、NVIDIA 芯片供应链紧张、Cloudflare Agent 基础设施、国产昇腾替代——算力即权力</li>
+    </ul>
+  </div>
+
+  <!-- ========== 游戏业务关联 ========== -->
+  <div class="section-title reveal"><span class="icon">🎮</span> 对游戏业务的潜在影响提示</div>
+
+  <div class="impact-grid">
+    <div class="impact-item reveal reveal-delay-1">
+      <div class="impact-dynamic">🧠 GPT-6 200万Token上下文</div>
+      <div class="impact-desc">可处理完整游戏代码库/设计文档，辅助大型项目开发</div>
+    </div>
+    <div class="impact-item reveal reveal-delay-2">
+      <div class="impact-dynamic">🔄 Claude Code Routines 7×24自动化</div>
+      <div class="impact-desc">游戏测试自动化、Bug 自动修复、CI/CD 流水线增强</div>
+    </div>
+    <div class="impact-item reveal reveal-delay-3">
+      <div class="impact-dynamic">🦙 Llama 4 开源 MoE 模型</div>
+      <div class="impact-desc">降低游戏 NPC/对话系统 AI 接入成本</div>
+    </div>
+    <div class="impact-item reveal reveal-delay-4">
+      <div class="impact-dynamic">🤖 具身智能产线落地</div>
+      <div class="impact-desc">未来可能应用于游戏动捕/测试等环节</div>
+    </div>
+    <div class="impact-item reveal reveal-delay-5">
+      <div class="impact-dynamic">🎨 多模态能力增强</div>
+      <div class="impact-desc">游戏 AI 生成素材（纹理/动画/音效）质量进一步提升</div>
+    </div>
+  </div>
+
+</div>
+
+<footer class="footer">
+  <p>信息来源于公开渠道 · 仅供参考</p>
+</footer>
+
+<!-- 滚动入场动画脚本（内容不变，仅添加交互行为） -->
+<script>
+(function(){
+  // ===== 星点粒子生成 =====
+  var starsContainer = document.getElementById('stars');
+  if (starsContainer) {
+    for (var i = 0; i < 30; i++) {
+      var s = document.createElement('div');
+      s.className = 'star';
+      var size = Math.random() * 2 + 1;
+      s.style.cssText = 'left:' + (Math.random() * 100) + '%;top:' + (Math.random() * 100) + '%;width:' + size + 'px;height:' + size + 'px;--dur:' + (2 + Math.random() * 4) + 's;animation-delay:' + (Math.random() * 3) + 's;';
+      starsContainer.appendChild(s);
+    }
+  }
+
+  // ===== 滚动进度条 =====
+  var progressBar = document.getElementById('scrollProgress');
+  function updateProgress() {
+    var scrollTop = window.scrollY;
+    var docHeight = document.documentElement.scrollHeight - window.innerHeight;
+    var progress = docHeight > 0 ? (scrollTop / docHeight) * 100 : 0;
+    progressBar.style.width = progress + '%';
+  }
+  
+  // ===== 回到顶部按钮 =====
+  var backToTopBtn = document.getElementById('backToTop');
+  function toggleBackToTop() { 
+    backToTopBtn.classList.toggle('visible', window.scrollY > 300);
+  }
+  backToTopBtn.addEventListener('click', function() {
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  });
+
+  // 滚动事件合并
+  window.addEventListener('scroll', function() {
+    updateProgress();
+    toggleBackToTop();
+  }, { passive: true });
+
+  // 初始化
+  updateProgress();
+
+  // ===== IntersectionObserver 实现 scroll-reveal =====
+  var observer = new IntersectionObserver(function(entries) {
+    entries.forEach(function(entry) {
+      if (entry.isIntersecting) {
+        entry.target.classList.add('visible');
+        
+        // 表格行交错入场
+        if (entry.target.classList.contains('news-table')) {
+          var rows = entry.target.querySelectorAll('tbody tr');
+          rows.forEach(function(row, i) {
+            setTimeout(function() { row.classList.add('in-view'); }, i * 60);
+          });
+        }
+        
+        // 总结列表交错入场
+        if (entry.target.classList.contains('summary-box')) {
+          var items = entry.target.querySelectorAll('.summary-list li');
+          items.forEach(function(item, i) {
+            setTimeout(function() { item.classList.add('in-view'); }, i * 180);
+          });
+        }
+      }
+    });
+  }, { threshold: 0.08, rootMargin: '0px 0px -40px 0px' });
+
+  document.querySelectorAll('.reveal').forEach(function(el){ observer.observe(el); });
+
+  // Footer 入场
+  var footerObserver = new IntersectionObserver(function(entries) {
+    entries.forEach(function(entry) {
+      if (entry.isIntersecting) { entry.target.classList.add('in-view'); }
+    });
+  }, { threshold: 0.3 });
+  
+  var footer = document.querySelector('footer.footer');
+  if (footer) footerObserver.observe(footer);
+})();
+</script>
+
+</body>
+</html>
