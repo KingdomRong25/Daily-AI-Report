@@ -1,0 +1,660 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>每日 AI 动态日报 — 2026-04-23</title>
+<style>
+:root {
+  --bg-primary: #0f1117;
+  --bg-secondary: #161822;
+  --bg-card: #1c1e2a;
+  --border-color: rgba(108,92,231,0.15);
+  --text-primary: #e8e6f0;
+  --text-secondary: #9a96b0;
+  --text-muted: #6b6680;
+  --accent: #6c5ce7;
+  --accent-glow: rgba(108,92,231,0.4);
+  --s-color: #ff4757;
+  --s-bg: rgba(255,71,87,0.08);
+  --s-border: rgba(255,71,87,0.3);
+  --a-color: #ffa502;
+  --a-bg: rgba(255,165,2,0.08);
+  --a-border: rgba(255,165,2,0.3);
+  --b-color: #2ed573;
+  --b-bg: rgba(46,213,115,0.08);
+  --b-border: rgba(46,213,115,0.3);
+  --impact-pink: #fd79a8;
+  --impact-cyan: #00cec9;
+  --impact-orange: #e17055;
+}
+
+* { margin: 0; padding: 0; box-sizing: border-box; }
+
+body {
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'PingFang SC', 'Microsoft YaHei', sans-serif;
+  background: var(--bg-primary);
+  color: var(--text-primary);
+  line-height: 1.7;
+  min-height: 100vh;
+  overflow-x: hidden;
+}
+
+.container { max-width: 900px; margin: 0 auto; padding: 20px 24px 60px; }
+
+/* ========== Header ========== */
+.header {
+  text-align: center;
+  padding: 48px 0 40px;
+  opacity: 0;
+  transform: translateY(-30px);
+  animation: headerEnter 0.8s ease forwards;
+}
+@keyframes headerEnter {
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.header-icon {
+  font-size: 48px;
+  display: inline-block;
+  animation: floatIcon 3s ease-in-out infinite;
+}
+@keyframes floatIcon {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-10px); }
+}
+
+.badge {
+  display: inline-block;
+  font-size: 12px;
+  font-weight: 600;
+  letter-spacing: 3px;
+  color: var(--accent);
+  background: rgba(108,92,231,0.1);
+  border: 1px solid rgba(108,92,231,0.25);
+  padding: 6px 18px;
+  border-radius: 50px;
+  margin-bottom: 16px;
+  animation: badgePulse 2.5s ease-in-out infinite;
+}
+@keyframes badgePulse {
+  0%, 100% { box-shadow: 0 0 0 0 transparent; }
+  50% { box-shadow: 0 0 20px 2px var(--accent-glow); }
+}
+
+.header h1 {
+  font-size: clamp(26px, 5vw, 36px);
+  font-weight: 800;
+  background: linear-gradient(135deg, #fff 0%, var(--accent) 50%, #a29bfe 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  margin-bottom: 14px;
+}
+
+.meta {
+  display: flex;
+  justify-content: center;
+  gap: 16px;
+  flex-wrap: wrap;
+  font-size: 13px;
+  color: var(--text-muted);
+}
+.meta span {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+}
+
+/* ========== Section Title ========== */
+.section-title {
+  font-size: 20px;
+  font-weight: 700;
+  color: var(--text-primary);
+  margin: 44px 0 24px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  opacity: 0;
+  transform: translateX(-20px);
+  transition: all 0.5s ease;
+}
+.section-title.visible {
+  opacity: 1;
+  transform: translateX(0);
+}
+.section-title .emoji { font-size: 24px; }
+.section-title::after {
+  content: '';
+  flex: 1;
+  height: 1px;
+  background: linear-gradient(90deg, var(--border-color), transparent);
+  margin-left: 14px;
+}
+
+/* ========== Cards ========== */
+.card {
+  background: var(--bg-card);
+  border-radius: 14px;
+  padding: 24px 28px;
+  margin-bottom: 18px;
+  position: relative;
+  overflow: hidden;
+  border: 1px solid var(--border-color);
+  opacity: 0;
+  transform: translateY(30px);
+  transition: all 0.5s ease, border-color 0.3s, box-shadow 0.3s;
+}
+.card.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+.card:hover {
+  border-color: rgba(108,92,231,0.35);
+  box-shadow: 0 8px 32px rgba(0,0,0,0.3);
+}
+
+.card::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  top: 0;
+  bottom: 0;
+  width: 4px;
+  border-radius: 4px 0 0 4px;
+}
+.card.s-card::before {
+  background: linear-gradient(180deg, var(--s-color), #ff6b7a);
+  animation: glowS 2.5s ease-in-out infinite;
+}
+.card.a-card::before {
+  background: linear-gradient(180deg, var(--a-color), #ffb347);
+  animation: glowA 2.5s ease-in-out infinite;
+}
+.card.b-card::before {
+  background: linear-gradient(180deg, var(--b-color), #7bed9f);
+  animation: glowB 2.5s ease-in-out infinite;
+}
+@keyframes glowS { 0%,100%{box-shadow:0 0 6px var(--s-color);} 50%{box-shadow:0 0 16px var(--s-color);} }
+@keyframes glowA { 0%,100%{box-shadow:0 0 6px var(--a-color);} 50%{box-shadow:0 0 16px var(--a-color);} }
+@keyframes glowB { 0%,100%{box-shadow:0 0 6px var(--b-color);} 50%{box-shadow:0 0 16px var(--b-color);} }
+
+.card-header {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 12px;
+}
+
+.level-tag {
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 1px;
+  padding: 3px 10px;
+  border-radius: 6px;
+}
+.level-s { color: var(--s-color); background: var(--s-bg); border: 1px solid var(--s-border); }
+.level-a { color: var(--a-color); background: var(--a-bg); border: 1px solid var(--a-border); }
+.level-b { color: var(--b-color); background: var(--b-bg); border: 1px solid var(--b-border); }
+
+.card-num {
+  width: 28px; height: 28px;
+  border-radius: 8px;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 13px; font-weight: 800;
+  color: #fff;
+  flex-shrink: 0;
+}
+.s-card .card-num { background: linear-gradient(135deg, var(--s-color), #ff6b7a); }
+.a-card .card-num { background: linear-gradient(135deg, var(--a-color), #ffb347); }
+.b-card .card-num { background: linear-gradient(135deg, var(--b-color), #7bed9f); }
+
+.card h3 {
+  font-size: 16px;
+  font-weight: 700;
+  line-height: 1.5;
+  flex: 1;
+}
+
+.card p {
+  font-size: 14px;
+  color: var(--text-secondary);
+  line-height: 1.75;
+  margin-bottom: 10px;
+}
+
+.highlight-box {
+  background: rgba(108,92,231,0.06);
+  border-left: 3px solid var(--accent);
+  padding: 12px 16px;
+  border-radius: 0 8px 8px 0;
+  font-size: 13.5px;
+  color: var(--text-secondary);
+}
+.highlight-box strong { color: var(--accent); }
+
+/* ========== Table ========== */
+.table-wrap {
+  overflow-x: auto;
+  border-radius: 12px;
+  border: 1px solid var(--border-color);
+  opacity: 0;
+  transform: translateY(30px);
+  transition: all 0.5s ease;
+}
+.table-wrap.visible { opacity: 1; transform: translateY(0); }
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 13.5px;
+  background: var(--bg-card);
+}
+thead th {
+  background: rgba(108,92,231,0.1);
+  color: var(--accent);
+  font-weight: 600;
+  text-align: left;
+  padding: 14px 16px;
+  font-size: 12px;
+  letter-spacing: 0.5px;
+  text-transform: uppercase;
+  white-space: nowrap;
+}
+tbody tr {
+  border-top: 1px solid var(--border-color);
+  opacity: 0;
+  transform: translateX(-15px);
+  transition: all 0.35s ease;
+}
+tbody tr.visible { opacity: 1; transform: translateX(0); }
+tbody tr:hover { background: rgba(108,92,231,0.05); }
+tbody td {
+  padding: 14px 16px;
+  vertical-align: top;
+  line-height: 1.65;
+}
+.num-cell { 
+  color: var(--text-muted); 
+  font-weight: 700; 
+  font-size: 12px;
+  width: 32px; 
+}
+.event-cell { color: var(--text-primary); font-weight: 500; }
+.reason-cell { color: var(--text-secondary); font-size: 13px; }
+
+/* ========== Trends ========== */
+.trends-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 12px;
+  margin-bottom: 20px;
+  opacity: 0;
+  transform: scale(0.95);
+  transition: all 0.5s ease;
+}
+.trends-grid.visible { opacity: 1; transform: scale(1); }
+
+.pill {
+  background: rgba(108,92,231,0.1);
+  border: 1px solid rgba(108,92,231,0.25);
+  border-radius: 50px;
+  padding: 10px 20px;
+  text-align: center;
+  font-weight: 700;
+  font-size: 14px;
+  color: var(--accent);
+  animation: pillBlink 3s ease-in-out infinite;
+}
+.pill:nth-child(2) { animation-delay: 0.5s; }
+.pill:nth-child(3) { animation-delay: 1s; }
+@keyframes pillBlink {
+  0%, 100% { box-shadow: 0 0 0 0 transparent; }
+  50% { box-shadow: 0 0 12px 2px var(--accent-glow); }
+}
+
+.trend-list {
+  list-style: none;
+  counter-reset: trend-counter;
+}
+.trend-list li {
+  counter-increment: trend-counter;
+  padding: 16px 20px;
+  background: var(--bg-card);
+  border-radius: 12px;
+  margin-bottom: 12px;
+  border: 1px solid var(--border-color);
+  opacity: 0;
+  transform: translateX(-20px) scale(0.98);
+  transition: all 0.45s cubic-bezier(0.34,1.56,0.64,1);
+}
+.trend-list li.visible { opacity: 1; transform: translateX(0) scale(1); }
+.trend-list li::before {
+  content: counter(trend-counter);
+  display: inline-flex; align-items: center; justify-content: center;
+  width: 24px; height: 24px; border-radius: 6px;
+  background: var(--accent); color: #fff;
+  font-size: 12px; font-weight: 800;
+  margin-right: 12px; flex-shrink: 0;
+}
+.trend-list li strong { color: var(--accent); }
+
+/* ========== Impact Grid ========== */
+.impact-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+  gap: 14px;
+  opacity: 0;
+  transform: translateY(30px);
+  transition: all 0.5s ease;
+}
+.impact-grid.visible { opacity: 1; transform: translateY(0); }
+
+.impact-card {
+  background: var(--bg-card);
+  border-radius: 12px;
+  padding: 20px;
+  border: 1px solid var(--border-color);
+  position: relative;
+  overflow: hidden;
+  transition: all 0.3s;
+}
+.impact-card:hover { border-color: rgba(108,92,231,0.3); transform: translateY(-2px); }
+.impact-card::before {
+  content: '';
+  position: absolute; top: 0; left: 0; right: 0; height: 3px;
+  animation: impactPulse 2.5s ease-in-out infinite;
+}
+.impact-card:nth-child(1)::before { background: var(--impact-pink); }
+.impact-card:nth-child(2)::before { background: var(--impact-cyan); }
+.impact-card:nth-child(3)::before { background: var(--impact-orange); }
+.impact-card:nth-child(4)::before { background: var(--accent); }
+.impact-card:nth-child(5)::before { background: var(--s-color); }
+@keyframes impactPulse { 0%,100%{opacity:0.6;} 50%{opacity:1;} }
+
+.impact-card h4 {
+  font-size: 14px; font-weight: 700;
+  color: var(--text-primary);
+  margin-bottom: 8px;
+  display: flex; align-items: center; gap: 6px;
+}
+.impact-card .source-tag {
+  font-size: 11px; font-weight: 600;
+  padding: 2px 8px; border-radius: 4px;
+  background: rgba(108,92,231,0.12); color: var(--accent);
+}
+.impact-card p { font-size: 13px; color: var(--text-secondary); line-height: 1.6; }
+
+/* ========== Footer ========== */
+.footer {
+  text-align: center;
+  padding: 40px 0 20px;
+  font-size: 12px;
+  color: var(--text-muted);
+  border-top: 1px solid var(--border-color);
+  margin-top: 48px;
+}
+
+/* ========== Responsive ========== */
+@media (max-width: 640px) {
+  .container { padding: 16px 14px 48px; }
+  .header { padding: 32px 0 28px; }
+  .header-icon { font-size: 38px; }
+  .header h1 { font-size: 22px; }
+  .card { padding: 18px 18px; }
+  .section-title { font-size: 17px; }
+  .trends-grid { grid-template-columns: 1fr; }
+  .impact-grid { grid-template-columns: 1fr; }
+  table { font-size: 12.5px; }
+  thead th, tbody td { padding: 10px 12px; }
+}
+
+/* Reduced Motion */
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}
+</style>
+</head>
+<body>
+
+<div class="container">
+
+<!-- Header -->
+<header class="header">
+  <div class="header-icon">🌍</div>
+  <div class="badge">🤖 AI DAILY REPORT</div>
+  <h1>每日 AI 动态日报</h1>
+  <div class="meta">
+    <span>📅 2026年4月23日（周四）</span>
+    <span>🌐 全球范围</span>
+    <span>⏰ 信息截止 09:00</span>
+  </div>
+</header>
+
+<!-- TOP 10 -->
+<h2 class="section-title"><span class="emoji">📌</span> TOP 10 重点资讯</h2>
+
+<!-- S级 -->
+<div class="card s-card" data-animate>
+  <div class="card-header">
+    <span class="level-tag level-s">🔴 S 级</span>
+    <span class="card-num">01</span>
+  </div>
+  <h3>Google Cloud Next '26 开幕：TPU v8 双芯片架构正式发布，Anthropic 承诺多吉瓦级采购</h3>
+  <p>Google 在拉斯维加斯 Cloud Next 大会（4/22-24）发布第八代 TPU，首次将训练（<strong>TPU 8t</strong>）和推理（<strong>TPU 8i</strong>）分离为独立芯片。训练性能提升 <strong>2.8 倍</strong>，推理性能提升 <strong>80%</strong>，每美元性价比提升 <strong>80%</strong>。推理芯片 TPU 8i 每颗集成 <strong>384MB SRAM</strong>（前代3倍），专为低延迟、高并发 Agent 场景设计。更关键的是：<strong>Anthropic 已确认承诺多吉瓦级 TPU 采购规模</strong>，Broadcom 同意扩大与 Google/Anthropic 的芯片合作。这是 Google 向 NVIDIA 霸权发起的最有力冲击。</p>
+  <div class="highlight-box"><strong>值得关注：</strong>推理芯片专业化 + Anthropic 背书 = NVIDIA 单极时代真正出现裂痕；对整个行业的推理成本下降有直接推动。</div>
+</div>
+
+<div class="card s-card" data-animate>
+  <div class="card-header">
+    <span class="level-tag level-s">🔴 S 级</span>
+    <span class="card-num">02</span>
+  </div>
+  <h3>SpaceX 获得以 $600 亿收购 Cursor 的期权，AI 编程赛道估值天花板被彻底刷新</h3>
+  <p>SpaceX（已合并 xAI）宣布获得以 <strong>600 亿美元估值</strong>收购 AI 编程工具 Cursor 的权利，或选择支付 <strong>100 亿美元</strong>购买双方联合开发成果。Cursor 将获准在 xAI 超级计算机上训练其"Composer"模型，摆脱对 OpenAI/Anthropic 的模型依赖。Cursor 目前正以超 <strong>500 亿估值</strong>融资 20 亿（a16z 领投）。此交易发生在 Musk 诉 Altman 案开庭前一周——OpenAI 曾是 Cursor 早期投资者。</p>
+  <div class="highlight-box"><strong>值得关注：</strong>AI Coding 工具从"创业赛道"跃升为"巨头战略资产"，$600亿估值重新定义了开发工具的价值上限。</div>
+</div>
+
+<!-- A级 -->
+<div class="card a-card" data-animate>
+  <div class="card-header">
+    <span class="level-tag level-a">🟠 A 级</span>
+    <span class="card-num">03</span>
+  </div>
+  <h3>月之暗面开源 Kimi K2.6：编程能力对标 GPT-5.4，300 Agent 并发协作</h3>
+  <p>月之暗面于 4/20 发布并<strong>开源</strong>旗舰模型 Kimi K2.6，在 SWE-Bench Pro 等编程基准上超越 GPT-5.4 和 Claude Opus 4.6。核心亮点：万亿参数、256K 上下文窗口、支持 <strong>300 个智能体并发调度</strong>、12 小时连续编程能力。API 定价较竞品上涨 58%，显示商业化信心。一周内连续迎来 Claude Opus 4.7 和 Qwen3.6-Max-Preview 竞品发布，国产大模型"闪电战"进入白热化阶段。</p>
+  <div class="highlight-box"><strong>值得关注：</strong>国产开源模型首次在编程基准全面对标美系顶尖闭源模型，Agent 并发能力成为新竞争维度。</div>
+</div>
+
+<div class="card a-card" data-animate>
+  <div class="card-header">
+    <span class="level-tag level-a">🟠 A 级</span>
+    <span class="card-num">04</span>
+  </div>
+  <h3>DeepSeek V4 采用华为昇腾芯片训练，阿里字节配合适配</h3>
+  <p>据路透社独家报道，DeepSeek 最新一代 V4 模型将全程运行在华为昇腾芯片上，阿里、字节跳动等同步进行生态适配。此举标志着国产 AI 算力栈从"可用"走向"规模化实战"，在中美算力博弈背景下具有标志性意义。V4 定位为万亿参数级开源旗舰，编程与数学能力为核心卖点。</p>
+  <div class="highlight-box"><strong>值得关注：</strong>国产算力全栈替代的关键验证节点，若成功将大幅降低中国 AI 企业对 NVIDIA 的依赖。</div>
+</div>
+
+<div class="card a-card" data-animate>
+  <div class="card-header">
+    <span class="level-tag level-a">🟠 A 级</span>
+    <span class="card-num">05</span>
+  </div>
+  <h3>OpenAI 计划向 Cerebras 投资 $200+ 亿构建自有 AI 芯片基础设施</h3>
+  <p>OpenAI 正式宣布计划向专用芯片公司 Cerebras 投资超过 <strong>200 亿美元</strong>换取股权，旨在构建超越现有供应商的 AI 基础设施。与此同时，OpenAI Codex 周活突破 <strong>300 万</strong>，新增 macOS 桌面自动化、90+ 插件集成；还发布了生物医学模型 <strong>GPT-Rosalind</strong> 和网络安全模型 <strong>GPT-5.4-Cyber</strong>。但高管动荡持续：Sora 负责人 Bill Peebles 和科学团队负责人 Kevin Weil 近期相继离职。</p>
+  <div class="highlight-box"><strong>值得关注：</strong>$200亿芯片投资 + Codex 企业扩张 + 高管出走 = OpenAI 正在经历"战时模式"下的快速转型与阵痛。</div>
+</div>
+
+<!-- B级 -->
+<div class="card b-card" data-animate>
+  <div class="card-header">
+    <span class="level-tag level-b">🟡 B 级</span>
+    <span class="card-num">06</span>
+  </div>
+  <h3>Anthropic 安全风波：Mythos 网络工具遭未授权访问，Claude Code Routines 上线</h3>
+  <p>据报道一个未授权团体获得了访问 Anthropic 独家网络工具 <strong>Mythos</strong> 的权限，引发 AI 安全与防御工具泄露的广泛担忧。产品方面，Claude Code 桌面应用重新设计，新增侧边栏多会话管理和 <strong>Routines（例程）功能</strong>，支持自动化 PR 审查和部署验证。</p>
+  <div class="highlight-box"><strong>值得关注：</strong>Mythos 作为 Anthropic 的核心安全/攻防工具被入侵，安全公司的安全工具自身安全性受质疑。</div>
+</div>
+
+<div class="card b-card" data-animate>
+  <div class="card-header">
+    <span class="level-tag level-b">🟡 B 级</span>
+    <span class="card-num">07</span>
+  </div>
+  <h3>Google Gemini 生态密集更新：Mac/Win 桌面 App、Gemini Robotics-ER 1.6、TTS 70 语种</h3>
+  <p>Google 在 Cloud Next 同期推进 Gemini 全生态升级：Gemini 应用正式登陆 <strong>macOS 和 Windows 桌面端</strong>；发布 <strong>Gemini 3.1 Flash TTS</strong> 支持 70+ 语言及 SynthID 水印；DeepMind 发布 <strong>Gemini Robotics-ER 1.6</strong> 机器人模型，已与 Boston Dynamics Spot 集成执行现实任务；Chrome 浏览器推出 <strong>Skills in Chrome</strong> 功能。</p>
+  <div class="highlight-box"><strong>值得关注：</strong>Google 从"模型厂商"转向"全平台 AI 操作系统"，桌面端+机器人+浏览器三位一体布局。</div>
+</div>
+
+<div class="card b-card" data-animate>
+  <div class="card-header">
+    <span class="level-tag level-b">🟡 B 级</span>
+    <span class="card-num">08</span>
+  </div>
+  <h3>福布斯 AI 50 榜单发布：OpenAI + Anthropic 占总融资额 80%</h3>
+  <p>2026 福布斯 AI 50 榜单出炉，OpenAI 和 Anthropic 两家累计融资达 <strong>2426 亿美元</strong>，占榜单总融资额约 80%。榜单反映 AI 行业资本极端集中化趋势：头部两家独大，中长尾公司融资空间被严重挤压。同时多家上榜公司正筹备重磅 IPO。</p>
+  <div class="highlight-box"><strong>值得关注：</strong>资本"马太效应"加剧，AI 行业正在形成双寡头垄断的资本格局。</div>
+</div>
+
+<div class="card b-card" data-animate>
+  <div class="card-header">
+    <span class="level-tag level-b">🟡 B 级</span>
+    <span class="card-num">09</span>
+  </div>
+  <h3>具身智能加速落地：埃森哲/沃达丰/SAP 试点仓库人形机器人</h3>
+  <p>埃森哲、沃达丰和 SAP 正在仓库运营场景试点 <strong>AI 驱动人形机器人</strong>。德国创业公司 Agile Robots 展示工业应用方案。结合此前智元精灵 G2 全球首个具身智能产线规模化落地、Boston Dynamics 与 Google DeepMind 的持续合作，具身智能正从概念验证走向商业化部署。</p>
+  <div class="highlight-box"><strong>值得关注：</strong>AI 从数字世界大规模渗透至物理世界，仓储物流成为首个规模化落地场景。</div>
+</div>
+
+<div class="card b-card" data-animate>
+  <div class="card-header">
+    <span class="level-tag level-b">🟡 B 级</span>
+    <span class="card-num">10</span>
+  </div>
+  <h3>MetaComp 推出金融业首个 AI Agent 治理框架 StableX</h3>
+  <p>MetaComp 发布 <strong>StableX Know Your Agent Framework</strong>，这是全球首个针对受监管金融服务的 AI Agent 治理框架，确立了支付和合规工作流中的 Agent 行为标准。随着 AI Agent 深度嵌入金融业务流程，监管科技（RegTech）成为新兴热点赛道。</p>
+  <div class="highlight-box"><strong>值得关注：</strong>Agent 治理从"自愿自律"迈向"合规强制"，金融业先行一步为其他行业提供范本。</div>
+</div>
+
+<!-- 其他 10 条 -->
+<h2 class="section-title"><span class="emoji">📋</span> 其他 10 条相关资讯速览</h2>
+
+<div class="table-wrap" data-animate>
+<table>
+  <thead>
+    <tr>
+      <th>#</th>
+      <th>事件</th>
+      <th>值得关注的原因</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr><td class="num-cell">1</td><td class="event-cell"><strong>NVIDIA 在 Hugging Face 发布 Nemotron-3-Super-120B</strong> 新文本生成模型</td><td class="reason-cell">NVIDIA 继续强化自研模型生态，不满足于只做"卖铲人"</td></tr>
+    <tr><td class="num-cell">2</td><td class="event-cell"><strong>Mistral AI 发布 Leanstral-2603</strong>，Microsoft 发布 Skala-1.0</td><td class="reason-cell">欧洲和美国中小模型厂商保持高频率迭代节奏</td></tr>
+    <tr><td class="num-cell">3</td><td class="event-cell"><strong>OpenAI 开源 Euphony 工具</strong>：基于浏览器的 Harmony/Codex 会话可视化</td><td class="reason-cell">推动 AI 交互透明度和可调试性</td></tr>
+    <tr><td class="num-cell">4</td><td class="event-cell"><strong>Meta 记录员工击键行为训练 AI</strong> 引发隐私争议</td><td class="reason-cell">AI 训练数据来源边界问题再次引发公众讨论</td></tr>
+    <tr><td class="num-cell">5</td><td class="event-cell"><strong>Apple AI 战略押注硬件</strong>：Johny Srouji 任首席硬件官，John Ternus 将接任 CEO（9/1）</td><td class="reason-cell">Apple 选择差异化路径——不做大模型做 AI 硬件</td></tr>
+    <tr><td class="num-cell">6</td><td class="event-cell"><strong>Google 广告产品全面升级为 AI Max</strong>，预计转化率提升 7%</td><td class="reason-cell">AI 开始直接驱动营收增长，不仅是成本中心</td></tr>
+    <tr><td class="num-cell">7</td><td class="event-cell"><strong>中信证券报告：Token 量井喷导致算力荒</strong>，国产推理芯片加速放量</td><td class="reason-cell">中国推理算力供需矛盾凸显，利好国产芯片厂商</td></tr>
+    <tr><td class="num-cell">8</td><td class="event-cell"><strong>中国出台 AI 拟人化互动管理办法</strong>，7/15 施行</td><td class="reason-cell">全球首个 AI 拟人化专项法规，监管走在前列</td></tr>
+    <tr><td class="num-cell">9</td><td class="event-cell"><strong>腾讯阿里拟投资 DeepSeek</strong>，估值飙至 $200 亿</td><td class="reason-cell">V4 发布前的资本狂欢，国产头部模型估值泡沫之争</td></tr>
+    <tr><td class="num-cell">10</td><td class="event-cell"><strong>斯坦福 HAI 2026 AI 指数报告</strong>：中美 AI 差距仅 2.7%</td><td class="reason-cell">权威数据佐证中美 AI 能力追平趋势</td></tr>
+  </tbody>
+</table>
+</div>
+
+<!-- 趋势总结 -->
+<h2 class="section-title"><span class="emoji">🔥</span> 今日趋势总结</h2>
+
+<div class="trends-grid" data-animate>
+  <div class="pill">⚡ 推理战争</div>
+  <div class="pill">💰 工具巨头化</div>
+  <div class="pill">🏗️ 全栈自主</div>
+</div>
+
+<ul class="trend-list">
+  <li data-animate><strong>⚡ 推理战争正式打响</strong> — Google TPU v8 将训练/推理硬件分离，Anthropic 以多吉瓦级订单背书，推理端取代训练端成为算力竞赛主战场。Agent 时代的并发需求是核心驱动力。</li>
+  <li data-animate><strong>💰 AI 工具巨头化时代来临</strong> — SpaceX 对 Cursor $600亿收购期权，标志着 AI 编程/知识工作工具从 SaaS 产品跃升为战略级基础设施，巨头开始用并购重塑生产力工具格局。</li>
+  <li data-animate><strong>🏗️ 中美全栈自主加速</strong> — DeepSeek V4 上华为昇腾、Kimi K2.6 开源对标 GPT-5.4、国产推理芯片放量，中国 AI 产业链正从模型层向芯片层全面推进自主可控。</li>
+</ul>
+
+<!-- 游戏业务影响 -->
+<h2 class="section-title"><span class="emoji">🎮</span> 对游戏业务的潜在影响提示</h2>
+
+<div class="impact-grid" data-animate>
+  <div class="impact-card">
+    <h4>🎭 游戏 NPC / Agent <span class="source-tag">关联事件</span></h4>
+    <p>TPU v8 低延迟推理 + Gemini Robotics-ER 1.6 → 大规模智能 NPC 并发推理成本有望下降，开放世界 AI 伙伴体验可进一步提升</p>
+  </div>
+  <div class="impact-card">
+    <h4>⚙️ 游戏研发效率 <span class="source-tag">关联事件</span></h4>
+    <p>SpaceX 收购 Cursor + Kimi K2.6 编程能力暴涨 → AI 编程工具链持续增强，游戏客户端/服务端开发的 AI 辅助覆盖率将快速提升</p>
+  </div>
+  <div class="impact-card">
+    <h4>🎨 多模态内容生产 <span class="source-tag">关联事件</span></h4>
+    <p>Claude Opus 4.7 视觉能力 + GPT-Image-2 + Gemini Photos 整合 → 游戏资产生产链（美术/文案/音效）的多模态 AI 工作流整合度加深</p>
+  </div>
+  <div class="impact-card">
+    <h4>💡 算力成本优化 <span class="source-tag">关联事件</span></h4>
+    <p>推理成本普遍下降趋势（TPU 8i 性能提升 80%）→ 游戏 AI 服务端推理成本有望降低，利于 AI 功能大规模上线</p>
+  </div>
+  <div class="impact-card">
+    <h4>⚖️ 合规风险 <span class="source-tag">关联事件</span></h4>
+    <p>AI 拟人化管理办法 7/15 施行 + 金融 Agent 治理框架 → 游戏内 AI 互动功能需提前审视合规要求，特别是拟人化 NPC 对话</p>
+  </div>
+</div>
+
+<!-- Footer -->
+<footer class="footer">
+  信息来源于公开渠道 · 仅供参考
+</footer>
+
+</div>
+
+<script>
+(function() {
+  // Scroll Reveal
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach((entry, i) => {
+      if (entry.isIntersecting) {
+        const delay = entry.target.dataset.delay || 0;
+        setTimeout(() => entry.target.classList.add('visible'), delay);
+      }
+    });
+  }, { threshold: 0.1 });
+
+  document.querySelectorAll('[data-animate], .section-title').forEach(el => observer.observe(el));
+
+  // Table rows staggered
+  const tableRows = document.querySelectorAll('tbody tr');
+  const rowObserver = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        const idx = Array.from(tableRows).indexOf(entry.target);
+        setTimeout(() => entry.target.classList.add('visible'), idx * 60);
+      }
+    });
+  }, { threshold: 0.1 });
+  tableRows.forEach(row => rowObserver.observe(row));
+
+  // Trend list staggered
+  const trends = document.querySelectorAll('.trend-list li');
+  const trendObserver = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        const idx = Array.from(trends).indexOf(entry.target);
+        setTimeout(() => entry.target.classList.add('visible'), idx * 150);
+      }
+    });
+  }, { threshold: 0.1 });
+  trends.forEach(t => trendObserver.observe(t));
+})();
+</script>
+
+</body>
+</html>

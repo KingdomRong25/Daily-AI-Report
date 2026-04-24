@@ -1,0 +1,515 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>🌍 每日 AI 动态日报 — 2026年4月22日</title>
+<style>
+/* ========== Reset & Base ========== */
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+html { scroll-behavior: smooth; -webkit-text-size-adjust: 100%; }
+body {
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", sans-serif;
+  background: #0f1117;
+  color: #e0e0e0;
+  line-height: 1.7;
+  overflow-x: hidden;
+}
+a { color: #a78bfa; text-decoration: none; transition: color .25s; }
+a:hover { color: #c4b5fd; text-shadow: 0 0 12px rgba(167,139,250,.5); }
+
+/* ========== Layout ========== */
+.container { max-width: 900px; margin: 0 auto; padding: 20px 24px 60px; }
+
+/* ========== Header ========== */
+.header {
+  text-align: center;
+  padding: 60px 20px 50px;
+  position: relative;
+  animation: headerFadeIn .8s ease-out both;
+}
+@keyframes headerFadeIn {
+  from { opacity: 0; transform: translateY(-30px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+.header-icon {
+  display: inline-block;
+  font-size: 52px;
+  animation: floatIcon 3s ease-in-out infinite;
+  filter: drop-shadow(0 4px 16px rgba(108,92,231,.45));
+}
+@keyframes floatIcon {
+  0%,100% { transform: translateY(0); }
+  50%      { transform: translateY(-10px); }
+}
+.badge {
+  display: inline-block;
+  background: linear-gradient(135deg, #6c5ce7, #a78bfa);
+  color: #fff;
+  font-size: .75rem;
+  font-weight: 700;
+  letter-spacing: 3px;
+  padding: 6px 18px;
+  border-radius: 999px;
+  margin-bottom: 18px;
+  animation: badgePulse 2.5s ease-in-out infinite;
+}
+@keyframes badgePulse {
+  0%,100% { box-shadow: 0 0 8px rgba(108,92,231,.3); }
+  50%      { box-shadow: 0 0 24px rgba(108,92,231,.65), 0 0 48px rgba(108,92,231,.2); }
+}
+.header h1 {
+  font-size: clamp(28px, 5vw, 42px);
+  font-weight: 800;
+  background: linear-gradient(135deg, #e0e0e0, #a78bfa);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  margin-bottom: 14px;
+}
+.meta {
+  font-size: .88rem;
+  color: #888;
+  letter-spacing: .5px;
+}
+.meta span { margin: 0 8px; }
+
+/* ========== Section Title ========== */
+.section-title {
+  font-size: 1.35rem;
+  font-weight: 750;
+  margin: 50px 0 24px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  color: #f0f0f0;
+}
+.section-title::before {
+  content: '';
+  width: 5px;
+  height: 26px;
+  border-radius: 3px;
+  background: linear-gradient(180deg, #6c5ce7, #a78bfa);
+}
+
+/* ========== Cards ========== */
+.card {
+  background: rgba(255,255,255,.03);
+  border: 1px solid rgba(255,255,255,.07);
+  border-radius: 14px;
+  padding: 28px 28px 24px;
+  margin-bottom: 22px;
+  position: relative;
+  overflow: hidden;
+  transition: transform .3s ease, box-shadow .3s ease, border-color .3s ease;
+  opacity: 0;
+  transform: translateY(28px);
+  animation: cardReveal .55s ease forwards;
+}
+.card:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 8px 32px rgba(0,0,0,.35);
+  border-color: rgba(108,92,231,.25);
+}
+/* left glowing border */
+.card::before {
+  content: '';
+  position: absolute;
+  top: 0; left: 0; bottom: 0;
+  width: 4px;
+  border-radius: 4px 0 0 4px;
+  animation: borderFlow 3s linear infinite;
+  background-size: 200% 100%;
+}
+@keyframes cardReveal {
+  to { opacity: 1; transform: translateY(0); }
+}
+/* S / A / B level colours */
+.card.s-level::before { background: linear-gradient(180deg, #ef4444, #f97316, #eab308); background-size: 100% 300%; animation: borderFlowS 3s linear infinite; }
+.card.a-level::before { background: linear-gradient(180deg, #3b82f6, #06b6d4);           background-size: 100% 200%; animation: borderFlowA 3s linear infinite; }
+.card.b-level::before { background: linear-gradient(180deg, #8b5cf6, #a78bfa);         background-size: 100% 200%; animation: borderFlowB 3s linear infinite; }
+
+@keyframes borderFlowS { 0%{background-position:0 0} 100%{background-position:0 300%} }
+@keyframes borderFlowA { 0%{background-position:0 0} 100%{background-position:0 200%} }
+@keyframes borderFlowB { 0%{background-position:0 0} 100%{background-position:0 200%} }
+
+.card-tag {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-size: .72rem;
+  font-weight: 700;
+  letter-spacing: 1px;
+  padding: 4px 12px;
+  border-radius: 6px;
+  margin-bottom: 14px;
+}
+.tag-s  { background: rgba(239,68,68,.15); color: #fca5a5; }
+.tag-a  { background: rgba(59,130,246,.15); color: #93c5fd; }
+.tag-b  { background: rgba(139,92,246,.15); color: #c4b5fd; }
+.card h2 {
+  font-size: 1.13rem;
+  font-weight: 700;
+  color: #f5f5f5;
+  margin-bottom: 12px;
+  line-height: 1.45;
+}
+.card p { font-size: .92rem; color: #bbb; margin-bottom: 10px; }
+.card blockquote {
+  border-left: 3px solid rgba(108,92,231,.5);
+  padding: 12px 18px;
+  margin-top: 12px;
+  border-radius: 0 8px 8px 0;
+  background: rgba(108,92,231,.06);
+  font-size: .9rem;
+  color: #ccc;
+}
+
+/* ========== Table ========== */
+.table-wrap { overflow-x: auto; border-radius: 12px; margin-top: 8px; }
+table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: .89rem;
+  background: rgba(255,255,255,.02);
+  border-radius: 12px;
+  overflow: hidden;
+}
+thead { background: linear-gradient(135deg, rgba(108,92,231,.2), rgba(108,92,231,.08)); }
+th {
+  padding: 13px 16px;
+  text-align: left;
+  font-weight: 700;
+  color: #ddd;
+  font-size: .82rem;
+  letter-spacing: .5px;
+  text-transform: uppercase;
+}
+td {
+  padding: 13px 16px;
+  border-top: 1px solid rgba(255,255,255,.05);
+  color: #aaa;
+  vertical-align: top;
+}
+tbody tr { transition: background .25s; opacity: 0; animation: rowFadeIn .4s ease forwards; }
+tbody tr:nth-child(odd)  { animation-delay: calc(var(--row,0)*.06s); }
+tbody tr:nth-child(even) { animation-delay: calc(var(--row,0)*.06s + .03s); }
+@keyframes rowFadeIn { to { opacity: 1; } }
+tbody tr:hover { background: rgba(108,92,231,.08); }
+
+/* ========== Trend Pills ========== */
+.trend-section { margin: 50px 0 20px; }
+.pills { display: flex; gap: 10px; flex-wrap: wrap; margin-bottom: 22px; }
+.pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 8px 20px;
+  border-radius: 999px;
+  font-weight: 700;
+  font-size: .85rem;
+  letter-spacing: 1px;
+  animation: pillShimmer 2.5s ease-in-out infinite;
+}
+.pill-1 { background: linear-gradient(135deg,rgba(239,68,68,.2),rgba(249,115,22,.2)); color: #fca5a5; border: 1px solid rgba(239,68,68,.25); }
+.pill-2 { background: linear-gradient(135deg,rgba(59,130,246,.2),rgba(6,182,212,.2)); color: #93c5fd; border: 1px solid rgba(59,130,246,.25); }
+.pill-3 { background: linear-gradient(135deg,rgba(139,92,246,.2),rgba(167,139,250,.2)); color: #c4b5fd; border: 1px solid rgba(139,92,246,.25); }
+@keyframes pillShimmer {
+  0%,100% { box-shadow: 0 0 6px transparent; }
+  50%      { box-shadow: 0 0 18px currentColor; }
+}
+.trend-list { list-style: none; padding: 0; }
+.trend-list li {
+  padding: 16px 20px;
+  margin-bottom: 12px;
+  border-radius: 10px;
+  background: rgba(255,255,255,.03);
+  border-left: 4px solid rgba(108,92,231,.4);
+  font-size: .93rem;
+  color: #ccc;
+  opacity: 0;
+  animation: trendPop .4s ease forwards;
+}
+.trend-list li:nth-child(1) { animation-delay: .1s; }
+.trend-list li:nth-child(2) { animation-delay: .25s; }
+.trend-list li:nth-child(3) { animation-delay: .4s; }
+@keyframes trendPop {
+  from { opacity: 0; transform: translateX(-16px) scale(.97); }
+  to   { opacity: 1; transform: translateX(0) scale(1); }
+}
+.trend-list strong { color: #e0e0e0; }
+
+/* ========== Impact Grid ========== */
+.impact-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+  gap: 16px;
+  margin-top: 12px;
+}
+.impact-card {
+  background: rgba(255,255,255,.03);
+  border: 1px solid rgba(255,255,255,.07);
+  border-radius: 12px;
+  padding: 22px;
+  position: relative;
+  overflow: hidden;
+  transition: border-color .3s, transform .3s;
+}
+.impact-card:hover { border-color: rgba(108,92,231,.3); transform: translateY(-2px); }
+.impact-card::after {
+  content: '';
+  position: absolute;
+  bottom: 0; left: 0; right: 0;
+  height: 3px;
+  animation: impactPulse 2s ease-in-out infinite;
+}
+.impact-card:nth-child(1)::after { background: #ef4444; }
+.impact-card:nth-child(2)::after { background: #3b82f6; }
+.impact-card:nth-child(3)::after { background: #10b981; }
+.impact-card:nth-child(4)::after { background: #f59e0b; }
+@keyframes impactPulse {
+  0%,100% { opacity: .5; }
+  50%      { opacity: 1; }
+}
+.impact-card h3 {
+  font-size: .95rem;
+  color: #f0f0f0;
+  margin-bottom: 10px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+.impact-card p { font-size: .87rem; color: #aaa; line-height: 1.65; }
+
+/* ========== Footer ========== */
+.footer {
+  text-align: center;
+  padding: 40px 0 20px;
+  margin-top: 60px;
+  border-top: 1px solid rgba(255,255,255,.06);
+  font-size: .82rem;
+  color: #666;
+  letter-spacing: .5px;
+}
+
+/* ========== Scroll Reveal (IntersectionObserver via JS) ========== */
+.scroll-reveal {
+  opacity: 0;
+  transform: translateY(24px);
+  transition: opacity .55s ease, transform .55s ease;
+}
+.scroll-reveal.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* ========== Responsive ========== */
+@media (max-width: 640px) {
+  .container { padding: 16px 16px 40px; }
+  .header { padding: 40px 14px 36px; }
+  .header h1 { font-size: 24px; }
+  .card { padding: 20px 18px 18px; }
+  th, td { padding: 10px 12px; font-size: .83rem; }
+  .pills { gap: 7px; }
+  .pill { font-size: .77rem; padding: 6px 14px; }
+  .impact-grid { grid-template-columns: 1fr; }
+}
+
+/* ========== Reduced Motion ========== */
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: .01ms !important;
+    transition-duration: .01ms !important;
+  }
+}
+</style>
+</head>
+<body>
+
+<div class="container">
+
+<!-- ===== HEADER ===== -->
+<header class="header">
+  <span class="header-icon">🌍</span>
+  <div class="badge">🤖 AI DAILY REPORT</div>
+  <h1>每日 AI 动态日报</h1>
+  <div class="meta">
+    <span>📅 2026年4月22日（星期三）</span>
+    <span>|</span>
+    <span>🌐 全球范围</span>
+    <span>|</span>
+    <span>⏰ 信息截止 09:00</span>
+  </div>
+</header>
+
+<!-- ===== TOP 10 ===== -->
+<div class="section-title">🔥 TOP 10 重点资讯</div>
+
+<!-- S1 -->
+<div class="card s-level" style="animation-delay:.05s">
+  <div class="card-tag tag-s">S 级 · 重大事件</div>
+  <h2>1. 苹果 CEO 库克卸任交棒 John Ternus，全面加速 AI 战略转型</h2>
+  <p>苹果宣布蒂姆·库克转任执行董事长，硬件工程负责人 <strong>John Ternus（约翰·特纳斯）</strong> 接任CEO，9月1日正式生效。新任CEO以芯片/硬件背景著称，将推动 iOS 18 升级 Siri 生成式 AI 能力，并依托 M 系列芯片神经引擎强化本地 AI 计算。</p>
+  <blockquote><strong>值得关注：</strong>这是苹果自 2011 年以来首次换帅，标志着传统硬件巨头在 AI 时代的战略转向。Ternus 上位意味着"硬件+算法整合"将成为苹果 AI 路线的核心，对 AI 手机、端侧推理生态格局影响深远。</blockquote>
+</div>
+
+<!-- S2 -->
+<div class="card s-level" style="animation-delay:.12s">
+  <div class="card-tag tag-s">S 级 · 重大事件</div>
+  <h2>2. 亚马逊向 Anthropic 追投最高 $250 亿，锁定 $1000 亿云消费 + 5GW Trainium 算力</h2>
+  <p>亚马逊宣布首期投资 <strong>$50亿</strong>，后续根据里程碑最高追加 <strong>$200亿</strong>，累计总投资可达 <strong>$330亿</strong>（约2249亿元人民币）。Anthropic 承诺未来十年在 AWS 投入超 <strong>$1000亿</strong>，锁定高达 <strong>5GW 的 Trainium AI 芯片</strong>算力（覆盖 Trainium2/3/4 三代）。</p>
+  <blockquote><strong>值得关注：</strong>全球 AI 领域单笔最大投资之一。Anthropic 年化收入已突破 <strong>$300亿</strong>，超越 OpenAI 的 <strong>$250亿</strong>。此举使亚马逊成为 Anthropic 最大算力供应商和云服务商，双方共建的 Project Rainier 拥有近 50 万张 Trainium2 芯片。</blockquote>
+</div>
+
+<!-- A3 -->
+<div class="card a-level" style="animation-delay:.19s">
+  <div class="card-tag tag-a">A 级 · 重要进展</div>
+  <h2>3. 月之暗面开源 Kimi K2.6：代码能力对标国际一线，支持 300 个 Agent 并行协作</h2>
+  <p>Kimi K2.6 正式发布并<strong>完全开源</strong>，定位"迄今最强代码模型"。实测可连续编码 <strong>13 小时</strong>，编写/修改超 <strong>4000 行代码</strong>；Agent 模式下支持 <strong>300 个子 Agent 并行协作</strong>，复杂端到端任务性能较 K2.5 提升 <strong>20%</strong>。已上线 Kimi.com、Kimi API 及 Kimi Code 编程助手。</p>
+  <blockquote><strong>值得关注：</strong>国产模型从通用能力竞争转向"工程化+Agent化"赛道。256k 上下文 + 多 Agent 协调能力，使其可直接参与全栈产品生成（网站、联网游戏等），对 Cursor/Claude Code 等 AI 编程工具形成正面挑战。</blockquote>
+</div>
+
+<!-- A4 -->
+<div class="card a-level" style="animation-delay:.26s">
+  <div class="card-tag tag-a">A 级 · 重要进展</div>
+  <h2>4. 微软 Fairwater AI 数据中心提前上线：数十万块 GB200 芯片，算力达全球最快超算 10 倍</h2>
+  <p>微软位于威斯康星州的 Fairwater AI 数据中心<strong>提前正式运营</strong>，投资约 <strong>33亿美元</strong>，配备<strong>数十万块英伟达 GB200 超级芯片</strong>，综合算力达到当前全球最快超算 Frontier 的 <strong>10倍</strong>。采用液冷系统 + NVLink 全互联架构，目标将下一代模型训练周期从数月压缩至数周。</p>
+  <blockquote><strong>值得关注：</strong>AI 算力基础设施进入"超级集群"时代。Fairwater 将主要服务于 GPT-6 等超大模型的训练需求，也标志着微软与英伟达的深度绑定进一步加深。</blockquote>
+</div>
+
+<!-- A5 -->
+<div class="card a-level" style="animation-delay:.33s">
+  <div class="card-tag tag-a">A 级 · 重要进展</div>
+  <h2>5. OpenAI 高管大地震 + Sora 关停：三位核心高管同日离职，11 位联合创始人仅剩 2 人</h2>
+  <p>OpenAI 于 4 月 19 日同日流失三位高级高管——首席产品官 Kevin Weil、Sora 项目负责人 Bill Peebles（"Sora之父"）、企业应用 CTO 斯里尼瓦斯·纳拉亚南。<strong>视频生成模型 Sora 将于 4 月 26 日正式关停</strong>（日均运营成本约 $100 万）。公司同时取消独立科学部门，聚焦企业用户和编程工具，备战 IPO。</p>
+  <blockquote><strong>值得关注：</strong>OpenAI 从激进扩张转向战略收缩。高管集体出逃至 Anthropic 和 Meta，叠加 Sora 关停和科学团队解散，反映出公司在商业化压力下的路线调整。IPO 进程可能受此波动影响。</blockquote>
+</div>
+
+<!-- A6 -->
+<div class="card a-level" style="animation-delay:.4s">
+  <div class="card-tag tag-a">A 级 · 重要进展</div>
+  <h2>6. 福布斯 AI 50 榜单发布：OpenAI + Anthropic 占总融资额 80%，xAI 被 SpaceX 收购</h2>
+  <p>《福布斯》第八届 AI 50 榜单揭晓，20 家公司为新面孔。上榜企业总融资额 <strong>$3056亿</strong>，其中 OpenAI 和 Anthropic 两家累计融资 <strong>$2426亿</strong>，占总额近 <strong>80%</strong>。重磅并购动态：<strong>xAI 被 SpaceX 收购</strong>，合并后估值达 <strong>$1.25万亿</strong>；Windsurf（AI编程）被 Google 以 $24 亿收编；Reflection（开源模型）获 $21 亿融资估值 $80 亿。</p>
+  <blockquote><strong>值得关注：</strong>AI 行业资本高度集中趋势加剧。头部两家吸金规模远超其余 48 家之和，同时行业整合加速——xAI 并入 SpaceX 标志着马斯克 AI 与航天版图的战略融合。</blockquote>
+</div>
+
+<!-- B7 -->
+<div class="card b-level" style="animation-delay:.47s">
+  <div class="card-tag tag-b">B 级 · 值得关注</div>
+  <h2>7. Google DeepMind 组建专项小组追赶 AI 编码，承认编码能力落后于 Anthropic</h2>
+  <p>Google DeepMind 宣布组建特别团队优化 AI 编程模型，直接对标 GitHub Copilot 和 OpenAI Codex。据披露，<strong>Anthropic 近 100% 代码由 AI 自身生成</strong>，而 Google 该比例仅约 <strong>50%</strong>。同时 Chrome 浏览器的 Gemini AI 功能扩展至亚太七国（澳、日、印尼等），利用 70.25% 桌面浏览器市场份额巩固分发优势。</p>
+  <blockquote><strong>值得关注：</strong>AI 编程已成为大厂必争之地。Google 在此领域追赶意愿强烈，Chrome + Gemini 的组合拳可能改变开发者工具市场的竞争态势。</blockquote>
+</div>
+
+<!-- B8 -->
+<div class="card b-level" style="animation-delay:.54s">
+  <div class="card-tag tag-b">B 级 · 值得关注</div>
+  <h2>8. Claude Mythos 核心架构被开源破解 —— OpenMythos 项目引爆社区</h2>
+  <p>22 岁创业者 Kye Gomez 成功推导出 Anthropic 旗舰模型 <strong>Claude Mythos</strong> 的核心架构，推出开源项目 <strong>OpenMythos</strong>。该项目融合 DeepSeek 思路，支持 <strong>16 次循环推理</strong>，770M 参数即可实现等效 1.3B 的性能表现。</p>
+  <blockquote><strong>值得关注：</strong>闭源模型的"黑箱"正在被社区逐步拆解。如果开源复现方案成熟，将对 Anthropic 的商业模式和技术护城河构成直接冲击。</blockquote>
+</div>
+
+<!-- B9 -->
+<div class="card b-level" style="animation-delay:.61s">
+  <div class="card-tag tag-b">B 级 · 值得关注</div>
+  <h2>9. 中国出台 AI 拟人化互动服务管理办法，严禁向未成年人提供虚拟亲密关系服务</h2>
+  <p>国家网信办等五部门联合公布<strong>《人工智能拟人化互动服务管理暂行办法》</strong>，将于 <strong>2026年7月15日</strong> 起施行。核心条款包括<strong>严禁向未成年人提供虚拟伴侣/AI恋人等虚拟亲密关系服务</strong>，同时对 AI 拟人化内容的安全评估、数据保护提出明确要求。</p>
+  <blockquote><strong>值得关注：</strong>全球首个针对 AI 情感交互领域的专门法规，将为 AI 陪伴/虚拟角色赛道划定合规红线，直接影响 Character.AI、Talkie 等产品的产品设计方向。</blockquote>
+</div>
+
+<!-- B10 -->
+<div class="card b-level" style="animation-delay:.68s">
+  <div class="card-tag tag-b">B 级 · 值得关注</div>
+  <h2>10. GPT-IMAGE-2 全量推送 + 豆包 Seeduplex 语音模型上线</h2>
+  <p><strong>OpenAI 向所有 ChatGPT 用户（含免费用户）推送 GPT-Image-2 图像模型</strong>，可精准生成含中文排版、软件界面及商业设计的图片。<strong>字节跳动豆包上线全双工语音模型 Seeduplex</strong>，判停延迟降低约 <strong>250ms</strong>，打断响应表现超真人水平，实现类真人的自然语音交互。</p>
+  <blockquote><strong>值得关注：</strong>多模态能力进入免费普惠阶段（图像），语音交互延迟逼近人类生理极限（250ms级），两者都将显著降低 AI 应用门槛，催生新的产品形态。</blockquote>
+</div>
+
+<!-- ===== TABLE ===== -->
+<div class="section-title scroll-reveal">📊 其他 10 条相关资讯速览</div>
+<div class="table-wrap scroll-reveal">
+<table>
+<thead>
+<tr>
+<th>#</th>
+<th>资讯摘要</th>
+<th>为什么值得关注</th>
+</tr>
+</thead>
+<tbody>
+<tr style="--row:0"><td><strong>1</strong></td><td><strong>腾讯混元 2.0 发布</strong>：MoE 架构，406B 总参数 / 32B 激活参数，256K 上下文窗口</td><td>腾讯自研大模型跻身第一梯队，DeepSeek V3.2 同步接入腾讯生态</td></tr>
+<tr style="--row:1"><td><strong>2</strong></td><td><strong>自变量机器人完成近 20 亿元 B 轮融资</strong>，小米战投领投</td><td>国内唯一被阿里/美团/字节/小米四家大厂共同投资的具身智能企业</td></tr>
+<tr style="--row:2"><td><strong>3</strong></td><td><strong>OpenAI Codex Chronicle 研究预览版上线</strong>：内置屏幕读取+个人记忆图谱</td><td>AI 编程工具从"被动响应"走向"主动记忆"，Agent 体验质变</td></tr>
+<tr style="--row:3"><td><strong>4</strong></td><td><strong>DeepSeek V4 预计月底发布</strong>：百万 Token 上下文 + 多模态 + LTM，成本仅国际主流 1/70</td><td>性价比路线继续冲击全球市场，V4 可能再次改写性价比基准线</td></tr>
+<tr style="--row:4"><td><strong>5</strong></td><td><strong>泉智博科技完成数亿元 A++ 轮融资</strong>，机器人关节模组 2025 出货破 10 万台</td><td>具身智能上游零部件赛道持续火热，一年内完成 6 轮融资</td></tr>
+<tr style="--row:5"><td><strong>6</strong></td><td><strong>Claude 爆发大规模封号潮</strong>，涉及 300 万用户的企业，申诉低效</td><td>Anthropic 规模化运营面临治理挑战，商业客户信任度或受影响</td></tr>
+<tr style="--row:6"><td><strong>7</strong></td><td><strong>国产 GPU 龙头"象帝先"启动 IPO</strong>，被称为"中国英伟达"</td><td>AI 芯片国产替代加速，若成功上市将成为 A 股 AI 算力核心标的</td></tr>
+<tr style="--row:7"><td><strong>8</strong></td><td><strong>Meta 拟安装员工电脑追踪软件收集训练数据</strong>，引发隐私争议</td><td>科技巨头的训练数据饥渴已蔓延到内部员工，数据伦理边界再引讨论</td></tr>
+<tr style="--row:8"><td><strong>9</strong></td><td><strong>剂泰科技通过港交所聆讯</strong>，国内首家 AI+药物递送上市公司</td><td>AI 制药赛道迎来标志性上市事件，制剂研发周期从数年压缩至 2-3 月</td></tr>
+<tr style="--row:9"><td><strong>10</strong></td><td><strong>Claude.md 配置文件 GitHub 单周涨 4.4 万星</strong>，总星 61.6k 登顶热榜</td><td>开发者社区对规范 AI 编程 Agent 行为的需求爆发式增长</td></tr>
+</tbody>
+</table>
+</div>
+
+<!-- ===== TREND ===== -->
+<section class="trend-section scroll-reveal">
+<div class="section-title">🔮 今日趋势总结</div>
+<div class="pills">
+  <span class="pill pill-1">权力交接</span>
+  <span class="pill pill-2">资本极化</span>
+  <span class="pill pill-3">工程化落地</span>
+</div>
+<ul class="trend-list">
+  <li><strong>权力交接成主题词</strong> — 苹果换帅（库克→Ternus）、OpenAI 高管大逃亡（3人同日离职），两大标志性公司的领导层变动折射出 AI 时代"技术基因"对管理层的重新筛选标准。</li>
+  <li><strong>资本极化加剧</strong> — 亚马逊单笔砸 $330亿 给 Anthropic，福布斯 AI 50 中两巨头占总融资 80%，头部集中度创历史新高；与此同时具身智能（自变量机器人 20 亿融资）、AI 制药（剂泰科技）等垂直赛道仍在吸引大额资本。</li>
+  <li><strong>从模型竞赛到工程化落地</strong> — Kimi K2.6 开源聚焦长程编码+多Agent协作、Google 组建编码追赶小组、Claude.md 规范 Agent 行为爆火——行业焦点从"谁的模型更强"转向"谁能用 AI 真正干活"。</li>
+</ul>
+</section>
+
+<!-- ===== IMPACT ===== -->
+<section class="scroll-reveal">
+<div class="section-title">🎮 对游戏业务的潜在影响提示</div>
+<div class="impact-grid">
+  <div class="impact-card">
+    <h3>🎨 AI NPC 与交互</h3>
+    <p>GPT-Image-2 全量推送（含免费用户）+ 豆包 Seeduplex 低延迟语音，为游戏内 AI NPC 图像生成和实时语音交互提供了更低成本的技术选项。</p>
+  </div>
+  <div class="impact-card">
+    <h3>⚡ 游戏研发提效</h3>
+    <p>Kimi K2.6 开源（300 Agent 并行协作）+ Codex Chronicle 记忆功能，游戏开发中的资产生成、代码编写、QA 自动化有望进一步降本。</p>
+  </div>
+  <div class="impact-card">
+    <h3>📱 端侧 AI 落地</h3>
+    <p>苹果换帅后 M 系列芯片 AI 加速能力将被优先放大，iOS 游戏接入本地 AI 功能（如智能助手、实时翻译）的路径更清晰。</p>
+  </div>
+  <div class="impact-card">
+    <h3>⚠️ 合规风险预警</h3>
+    <p>《AI 拟人化互动管理办法》7 月施行，游戏中 AI 陪伴/虚拟角色功能需审视是否涉及未成年人虚拟亲密关系内容。</p>
+  </div>
+</div>
+</section>
+
+<!-- ===== FOOTER ===== -->
+<footer class="footer">
+  信息来源于公开渠道 · 仅供参考
+</footer>
+
+</div><!-- /.container -->
+
+<!-- ========== JS: Scroll Reveal ========== -->
+<script>
+(function(){
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(e => {
+      if (e.isIntersecting) {
+        e.target.classList.add('visible');
+        observer.unobserve(e.target);
+      }
+    });
+  }, { threshold: 0.1 });
+  document.querySelectorAll('.scroll-reveal').forEach(el => observer.observe(el));
+})();
+</script>
+
+</body>
+</html>
